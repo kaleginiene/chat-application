@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export const Header = styled.header`
   padding: 1em;
   border-bottom: 2px solid ${(props) => props.theme.primary.background};
-  margin-bottom: 1em;
 `;
+
 export const Wrapper = styled.div`
   width: 56em;
   display: flex;
@@ -23,7 +23,6 @@ export const Actions = styled.nav``;
 
 export const StyledLink = styled(Link)`
   font-size: 0.9em;
-  color: #222;
   text-decoration: none;
   &:hover {
     text-decoration: underline;

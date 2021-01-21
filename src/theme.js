@@ -1,20 +1,28 @@
 const theme = {
   primary: {
-    background: "#333333",
+    background: "#6452A1", //royal purple
     hover: {
-      background: "#222222",
+      background: "#8092AD", //shaddow blue
     },
     focus: {
-      background: "#111111",
+      background: "#F7C4C4", //pink
+      color: "#fff",
+    },
+    font: {
+      color: "#1D282E", //dark
     },
   },
   secondary: {
-    background: "#eeeeee",
+    background: "#F7C4C4", //pink
     hover: {
-      background: "e8e8e8",
+      background: "#8092AD", //shaddow blue
+      color: "#fff",
     },
     focus: {
-      background: "e3e3e3",
+      background: "#CCD8DF", //light blue
+    },
+    font: {
+      color: "#fff", //dark
     },
   },
 };
