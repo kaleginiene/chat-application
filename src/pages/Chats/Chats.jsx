@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Section } from "../../components";
-import * as S from "./Home.style";
+import * as S from "./Chats.style";
 
-function Home() {
+function Chats() {
   return (
     <S.Main>
       <Section background="e3e3e3">
@@ -23,4 +23,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Chats;

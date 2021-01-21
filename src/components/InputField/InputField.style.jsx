@@ -7,18 +7,20 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled.input`
+  margin: 1em 0;
+  padding: 0.5em;
   width: 100%;
   box-sizing: border-box;
+
   border: 1px solid ${(props) => props.theme.primary.background};
-  padding: 0.5em;
-  height: ${(props) => props.theme.primary.height};
-  margin: 1em 0;
+  border-radius: 0.5em;
+
   &:focus {
     outline: none;
   }
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    margin: 0;
+
+  @media only screen and (max-width: 767px) {
+    margin: 0.5em 0;
   }
 `;
 
@@ -28,41 +30,47 @@ export const TextArea = styled.textarea`
   border: 1px solid ${(props) => props.theme.primary.background};
   padding: 0.5em;
   margin: 1em 0;
+
   &&:focus {
     outline: none;
   }
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    margin: 0;
+
+  @media only screen and (max-width: 767px) {
+    margin: 0.5em 0;
   }
 `;
 
 export const Select = styled.select`
+  padding: 0.5em;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 5px;
+
+  border-radius: 0.5em;
   border: 1px solid ${(props) => props.theme.primary.background};
-  padding: 5px;
 `;
+
 export const Radio = styled.input`
-  width: 15px;
-  margin-right: 10px;
-  margin-left: 5px;
+  width: 1em;
+  margin-right: 0.8em;
+  margin-left: 0.5em;
 `;
 
 export const RadioLabel = styled.label`
   cursor: pointer;
-  margin: 10px;
+  margin: 0.8em;
 `;
 
 export const Label = styled.label`
-  color: ${(props) => props.theme.primary.color};
-  font-size: 0.8em;
-  text-align: right;
   margin-top: 2em;
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    text-align: left;
+
+  color: ${(props) => props.theme.primary.color};
+  text-align: right;
+  font-size: 1em;
+
+  @media only screen and (max-width: 767px) {
     margin-top: 2em;
+    width: 100%;
+
+    text-align: left;
   }
 `;

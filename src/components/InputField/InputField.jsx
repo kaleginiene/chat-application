@@ -39,6 +39,19 @@ function InputField({
           />
         </S.InputWrapper>
       );
+    case "password":
+      return (
+        <S.InputWrapper>
+          <S.Label>{label}</S.Label>
+          <S.Input
+            type="password"
+            placeholder={placeholder}
+            onChange={handleChange}
+            required={required}
+            minLength={minLength}
+          />
+        </S.InputWrapper>
+      );
     case "longtext":
       return (
         <S.InputWrapper>
