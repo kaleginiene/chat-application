@@ -8,14 +8,11 @@ export const Button = styled.button`
       ? props.theme.primary.background
       : props.theme.secondary.background};
 
-  color: ${(props) =>
-    props.color === "primary"
-      ? props.theme.primary.font.color
-      : props.theme.secondary.font.color};
-  outline: none;
+  color: ${(props) => props.theme.secondary.font.color};
 
   border: none;
   border-radius: 0.5em;
+  outline: none;
   cursor: pointer;
 
   &:hover {
@@ -23,11 +20,6 @@ export const Button = styled.button`
       props.color === "primary"
         ? props.theme.primary.hover.background
         : props.theme.secondary.hover.background};
-
-    color: ${(props) =>
-      props.color === "primary"
-        ? props.theme.primary.font.color
-        : props.theme.secondary.font.color};
   }
 
   &:focus {

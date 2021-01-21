@@ -42,7 +42,7 @@ function Login() {
               setUser({ ...user, password: e.target.value });
             }}
           />
-          <Button color="secondary" type="submit">
+          <Button color="primary" type="submit">
             Login
           </Button>
         </S.Form>
