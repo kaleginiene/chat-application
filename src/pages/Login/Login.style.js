@@ -60,7 +60,7 @@ export const Form = styled.form`
   }
 
   button {
-    margin-top: 2em;
+    margin-top: 1.5em;
     min-width: 10em;
 
     @media only screen and (max-width: 767px) {
@@ -77,6 +77,12 @@ export const Form = styled.form`
 `;
 
 export const Title = styled.h1`
+  @media only screen and (max-width: 767px) {
+    color: #fff;
+  }
+`;
+
+export const SubTitle = styled.h2`
   @media only screen and (max-width: 767px) {
     color: #fff;
   }
