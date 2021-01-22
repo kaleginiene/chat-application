@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Routes from "./Routes";
+import { UserProvider } from "./contexts/UserContext";
+import { ChatProvider } from "./contexts/ChatContext";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import theme from "./theme";
 import "normalize.css";
@@ -16,7 +18,11 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalBodyStyle />
-      <Routes />
+      <UserProvider>
+        <ChatProvider>
+          <Routes />
+        </ChatProvider>
+      </UserProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
