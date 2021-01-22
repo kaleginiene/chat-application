@@ -25,6 +25,10 @@ const theme = {
       color: "#fff", //dark
     },
   },
+  chat: {
+    backgroundOut: "#b5b9e2", //light blue for outcomming messages
+    backgroundIn: "#e8e8ef", //light grey for incomming messages
+  },
 };
 
 export default theme;

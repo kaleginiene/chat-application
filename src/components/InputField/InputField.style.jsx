@@ -7,7 +7,7 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled.input`
-  margin: 1em 0;
+  margin-bottom: 1.5em;
   padding: 0.5em;
   width: 100%;
   box-sizing: border-box;
@@ -61,7 +61,7 @@ export const RadioLabel = styled.label`
 `;
 
 export const Label = styled.label`
-  margin-top: 2em;
+  margin-bottom: 0.5em;
 
   color: ${(props) => props.theme.primary.color};
   text-align: right;

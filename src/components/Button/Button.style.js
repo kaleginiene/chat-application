@@ -23,9 +23,6 @@ export const Button = styled.button`
   }
 
   &:focus {
-    background: ${(props) =>
-      props.color === "primary"
-        ? props.theme.primary.focus.background
-        : props.theme.secondary.focus.background};
+    background: ${(props) => props.theme.secondary.focus.background};
   }
 `;
