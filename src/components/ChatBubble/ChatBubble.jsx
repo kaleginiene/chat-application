@@ -10,16 +10,19 @@ function CheckType(text) {
 }
 
 function ChatBubble({ chat }) {
-  const messagesList = chat[0].messages;
-  console.log(messagesList);
-
   return (
     <>
-      {messagesList.map((text) => (
-        <S.Block type={CheckType(text)} key={text.id}>
-          {text.text}
-        </S.Block>
-      ))}
+      {chat.length === 1 ? (
+        chat[0].messages.map((
+          text //returning every item of the array in a Block
+        ) => (
+          <S.Block type={CheckType(text)} key={text.id}>
+            {text.text}
+          </S.Block>
+        ))
+      ) : (
+        <S.Notification>"There is no messsages yet"</S.Notification>
+      )}
     </>
   );
 }

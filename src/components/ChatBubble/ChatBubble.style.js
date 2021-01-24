@@ -13,3 +13,7 @@ export const Block = styled.div`
 
   font-size: 0.9em;
 `;
+
+export const Notification = styled.h4`
+  text-align: center;
+`;
