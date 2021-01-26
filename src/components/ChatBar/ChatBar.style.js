@@ -4,17 +4,23 @@ export const Block = styled.div`
   display: flex;
   align-items: center;
 
-  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+  padding: 0.5em 0.5em;
   height: 5em;
+  max-width: 100%;
 
-  border-bottom: 1px solid ${(props) => props.theme.chat.backgroundIn};
+  border-radius: 1em;
   cursor: pointer;
+
+  &.active {
+    background-color: ${(props) => props.theme.primary.background};
+  }
 `;
 
 export const Picture = styled.img`
   margin-right: 1em;
-  width: 5em;
-  height: 5em;
+  width: 4em;
+  height: 4em;
 
   border-radius: 100%;
 
@@ -22,12 +28,9 @@ export const Picture = styled.img`
 `;
 
 export const Wrapper = styled.div`
-  padding: 2em 0;
   width: calc(
     100% - 5em - 1em
   ); //width is 100% minus margin and width of the picture
-
-  text-align: center;
 `;
 
 export const Title = styled.h3`
@@ -38,7 +41,7 @@ export const Title = styled.h3`
 
 export const LastMessage = styled.p`
   margin: 0;
-  max-height: 3em;
+  padding: 0.1em 0;
   overflow: hidden;
 
   text-overflow: ellipsis;
