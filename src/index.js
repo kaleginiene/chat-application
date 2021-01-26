@@ -9,6 +9,8 @@ import "normalize.css";
 
 const GlobalBodyStyle = createGlobalStyle`
 body {
+  background-color: ${(props) => props.theme.primary.background};
+
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.theme.primary.font.color};
 }

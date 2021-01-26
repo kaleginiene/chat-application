@@ -1,6 +1,6 @@
 const theme = {
   primary: {
-    background: "#6452A1", //royal purple
+    background: "#F3F6FB", //light blue
     hover: {
       background: "#8092AD", //shaddow blue
     },
@@ -9,26 +9,29 @@ const theme = {
       color: "#fff",
     },
     font: {
-      color: "#1D282E", //dark
+      color: "#1c2a3d", //dark
     },
   },
   secondary: {
-    background: "#F7C4C4", //pink
+    background: "#4772e8", //intensive blue
     hover: {
-      background: "#8092AD", //shaddow blue
+      background: "#1f344f", //dark blue
       color: "#fff",
     },
     focus: {
-      background: "#CCD8DF", //light blue
+      background: "#1f344f", //dark blue
     },
     font: {
       color: "#fff", //dark
     },
   },
   chat: {
-    backgroundOut: "#b5b9e2", //light blue for outcomming messages
-    backgroundIn: "#e8e8ef", //light grey for incomming messages
+    backgroundOut: "#1f344f", //dark blue for outcomming messages
+    colorOut: "#eee", //white font for outcomming messages
+    backgroundIn: "#fff", //white incomming messages
+    colorIn: "#151719", //dark grey
   },
+  border: "2px solid #cbdaef", //blue border
 };
 
 export default theme;
