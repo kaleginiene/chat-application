@@ -6,7 +6,6 @@ import * as S from "./Login.style";
 
 function Login() {
   const history = useHistory();
-  const [user, setUser] = useState({ email: "", password: "" });
   const userInfo = useContext(UserContext);
   const [notification, setNotification] = useState();
   const [formDisplay, setFormDisplay] = useState("");
@@ -18,7 +17,10 @@ function Login() {
         <S.Form
           onSubmit={(e) => {
             e.preventDefault();
-            if (user.email.length > 3 && user.password.length > 6) {
+            if (
+              userInfo.state.email.length > 3 &&
+              userInfo.state.password.length > 6
+            ) {
               e.target.style.display = "none"; //on submit form disapears
               setFormDisplay("show");
             } else {
@@ -35,7 +37,7 @@ function Login() {
             placeholder="e.g.: email@email"
             label="Email"
             handleChange={(e) => {
-              setUser({ ...user, email: e.target.value });
+              userInfo.setState({ ...userInfo.state, email: e.target.value });
             }}
           />
           <InputField
@@ -43,7 +45,10 @@ function Login() {
             placeholder="Enter your password"
             label="Password"
             handleChange={(e) => {
-              setUser({ ...user, password: e.target.value });
+              userInfo.setState({
+                ...userInfo.state,
+                password: e.target.value,
+              });
             }}
           />
           <Button color="primary" type="submit">
@@ -118,7 +123,7 @@ function Login() {
                 })
               }
             />
-            <Button color="primary" type="submit">
+            <Button color="secondary" type="submit">
               Submit
             </Button>
           </S.Form>
