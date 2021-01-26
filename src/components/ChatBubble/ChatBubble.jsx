@@ -16,10 +16,10 @@ function ChatBubble({ chat }) {
         chat[0].messages.map((
           text //returning every item of the array in a Block
         ) => (
-          <S.Block type={CheckType(text)} key={text.id}>
-            {text.text}
-          </S.Block>
-        ))
+          <S.Wrapper type={CheckType(text)} key={text.id}>
+            <S.Block type={CheckType(text)}>{text.text}</S.Block>
+          </S.Wrapper>
+        )) //wrapper is needed for chat bubble alignment
       ) : (
         <S.Notification>"There is no messsages yet"</S.Notification>
       )}
