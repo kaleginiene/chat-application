@@ -2,20 +2,24 @@ import React from "react";
 import * as S from "./InputField.style";
 
 function InputField({
-  type,
-  placeholder,
+  accept,
+  disabled,
   handleChange,
-  options,
-  radioId,
+  handleClick,
   label,
-  radioName,
   minLength,
+  options,
+  placeholder,
+  radioId,
+  radioName,
   required,
+  type,
+  value,
 }) {
   switch (type) {
     case "number":
       return (
-        <S.InputWrapper>
+        <S.InputWrapper onClick={handleClick}>
           <S.Label>{label}</S.Label>
           <S.Input
             type="number"
@@ -23,12 +27,14 @@ function InputField({
             placeholder={placeholder}
             onChange={handleChange}
             required={required}
+            disabled={disabled}
+            value={value}
           />
         </S.InputWrapper>
       );
     case "email":
       return (
-        <S.InputWrapper>
+        <S.InputWrapper onClick={handleClick}>
           <S.Label>{label}</S.Label>
           <S.Input
             type="email"
@@ -36,12 +42,14 @@ function InputField({
             onChange={handleChange}
             required={required}
             minLength={minLength}
+            disabled={disabled}
+            value={value}
           />
         </S.InputWrapper>
       );
     case "password":
       return (
-        <S.InputWrapper>
+        <S.InputWrapper onClick={handleClick}>
           <S.Label>{label}</S.Label>
           <S.Input
             type="password"
@@ -49,18 +57,22 @@ function InputField({
             onChange={handleChange}
             required={required}
             minLength={minLength}
+            disabled={disabled}
+            value={value}
           />
         </S.InputWrapper>
       );
     case "longtext":
       return (
-        <S.InputWrapper>
+        <S.InputWrapper onClick={handleClick}>
           <S.Label>{label}</S.Label>
           <S.TextArea
             type="longtext"
             placeholder={placeholder}
             onChange={handleChange}
             required={required}
+            disabled={disabled}
+            value={value}
           />
         </S.InputWrapper>
       );
@@ -91,13 +103,23 @@ function InputField({
               onChange={handleChange}
               defaultValue
               name={radioName}
+              value={value}
             />
           </S.RadioLabel>
         </>
       );
+    case "file":
+      return (
+        <>
+          <S.InputWrapper>
+            <S.Label>{label}</S.Label>
+            <S.Input type="file" accept={accept} onChange={handleChange} />
+          </S.InputWrapper>
+        </>
+      );
     default:
       return (
-        <S.InputWrapper>
+        <S.InputWrapper onClick={handleClick}>
           <S.Label>{label}</S.Label>
           <S.Input
             type="text"
@@ -105,6 +127,8 @@ function InputField({
             onChange={handleChange}
             minLength={minLength}
             required={required}
+            disabled={disabled}
+            value={value}
           />
         </S.InputWrapper>
       );

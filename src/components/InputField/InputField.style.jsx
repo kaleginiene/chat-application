@@ -4,6 +4,7 @@ export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const Input = styled.input`
@@ -12,7 +13,7 @@ export const Input = styled.input`
   width: 100%;
   box-sizing: border-box;
 
-  border: 1px solid ${(props) => props.theme.primary.background};
+  border: ${(props) => props.theme.border};
   border-radius: 0.5em;
 
   &:focus {
