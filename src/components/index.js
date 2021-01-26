@@ -5,4 +5,5 @@ export { default as Footer } from "./Footer/Footer";
 export { default as ImageUploader } from "./ImageUploader/ImageUploader";
 export { default as InputField } from "./InputField/InputField";
 export { default as Loader } from "./Loader/Loader";
+export { default as Notification } from "./Notification/Notification";
 export { default as ProfileBlock } from "./ProfileBlock/ProfileBlock";
