@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Block = styled.div`
   position: relative;
 
+  margin-top: 1em;
   padding: 1em;
 
   background-color: ${(props) => props.theme.primary.background};

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
+  margin: 1em 0;
   padding: 0.5em 2em;
 
   background: ${(props) =>

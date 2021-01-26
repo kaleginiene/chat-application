@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import EditIcon from "../../assets/edit.svg";
 import EditIconHover from "../../assets/edithover.svg";
+import LocationPin from "../../assets/location.svg";
 
 export const Block = styled.div`
   position: relative;
@@ -32,7 +33,6 @@ export const Edit = styled.div`
 `;
 
 export const Picture = styled.img`
-  margin-right: 1em;
   width: 6em;
   height: 6em;
   box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
@@ -46,4 +46,22 @@ export const Picture = styled.img`
 
 export const Title = styled.h3``;
 
-export const Subtitle = styled.h4``;
+export const Subtitle = styled.h4`
+  position: relative;
+
+  &&::before {
+    content: "";
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    left: 4em;
+    top: -0.2em;
+
+    background-image: url(${LocationPin});
+    background-size: cover;
+
+    @media only screen and (max-width: 767px) {
+      left: 7.5em;
+    }
+  }
+`;

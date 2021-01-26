@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
     props.type === "out"
       ? "flex-end"
       : "flex-start"}; //incomming messages aligned left, outcomming messages aligned right
+  width: 100%;
 `;
 
 export const Block = styled.div`

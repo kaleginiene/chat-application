@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Background from "../../assets/background.png";
 
 export const Main = styled.main`
   display: flex;
@@ -24,6 +25,9 @@ export const Container = styled.section`
 
   &&:first-child {
     background-color: ${(props) => props.theme.primary.background};
+    background-image: url(${Background});
+    background-size: cover;
+    background-position-x: center;
 
     @media only screen and (max-width: 767px) {
       display: none;
@@ -58,6 +62,9 @@ export const Form = styled.form`
 
     box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
   }
+  input[type="radio"] {
+    box-shadow: none;
+  }
 
   button {
     margin-top: 1.5em;
@@ -72,6 +79,37 @@ export const Form = styled.form`
 `;
 
 export const Title = styled.h1``;
+
+export const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  max-width: 100%;
+`;
+
+export const Box = styled.div`
+  margin: 1em 0 2em 0;
+  padding: 1em;
+  width: 5em;
+  box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
+
+  border: ${(props) => props.theme.border};
+  border-radius: 0.5em;
+
+  background-color: ${(props) =>
+    props.gender === props.value ? props.theme.secondary.background : "#fff"};
+  cursor: pointer;
+
+  color: ${(props) =>
+    props.gender === props.value
+      ? props.theme.secondary.font.color
+      : props.theme.primary.font.color};
+
+  @media only screen and (max-width: 767px) {
+    margin: 2em 0 0 0;
+  }
+`;
 
 export const SubTitle = styled.h2`
   @media only screen and (max-width: 767px) {

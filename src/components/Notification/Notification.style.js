@@ -5,7 +5,7 @@ import ExitHover from "../../assets/exithover.svg";
 export const Notification = styled.div`
   position: relative;
 
-  padding: 1em;
+  padding: 1.5em;
   margin-bottom: 1.5em;
 
   background-color: ${(props) => props.theme.secondary.background};
