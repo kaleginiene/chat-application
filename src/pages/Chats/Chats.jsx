@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import ScrollableFeed from "react-scrollable-feed";
 import { useHistory } from "react-router-dom";
 import { ChatContext } from "../../contexts/ChatContext";
 import { UserContext } from "../../contexts/UserContext";
@@ -82,7 +83,6 @@ function Chats() {
     user_id: "user",
     text: "",
   }); //storing message from an input
-  const scrollRef = useRef();
 
   console.log(senderID.state);
   console.log(message);
@@ -110,10 +110,12 @@ function Chats() {
           city={userInfo.state.city}
         />
         <S.Title>Conversations</S.Title>
-        <ChatBar
-          chats={data ? data.results.chats : []}
-          users={data ? data.results.users : []}
-        />
+        <S.Block className="aside">
+          <ChatBar
+            chats={data ? data.results.chats : []}
+            users={data ? data.results.users : []}
+          />
+        </S.Block>
       </S.SideBar>
       <S.Wrapper>
         <S.Container display={senderID.state}>
@@ -123,15 +125,18 @@ function Chats() {
               <S.Title>Choose the person to chat with!</S.Title>
             </S.Block>
           )}
-          {senderID.state !== null &&
-          data && ( //if there is userID, then show the chat where the userID is included
-              <ChatBubble
-                chat={data.results.chats.filter(
-                  (chat) => chat.user_id === senderID.state
+          <S.ScrollWrapper>
+            <ScrollableFeed>
+              {senderID.state !== null &&
+              data && ( //if there is userID, then show the chat where the userID is included
+                  <ChatBubble
+                    chat={data.results.chats.filter(
+                      (chat) => chat.user_id === senderID.state
+                    )}
+                  />
                 )}
-              />
-            )}
-          <span ref={scrollRef}></span>
+            </ScrollableFeed>
+          </S.ScrollWrapper>
 
           {senderID.state !== null && ( //if there is userID, then show the message input
             <S.Form
@@ -149,7 +154,6 @@ function Chats() {
                     console.log("message sent");
                   }
                   postMessage(data);
-                  scrollRef.current.scrollIntoView({ behavior: "smooth" });
                   setMessage({ ...message, id: null, text: "" });
                   e.target.reset();
                 }

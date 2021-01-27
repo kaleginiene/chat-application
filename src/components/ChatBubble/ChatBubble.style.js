@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 
 export const Block = styled.div`
   padding: 1em 1.5em;
-  margin: 1em 0;
+  margin: 1em 1em;
   width: fit-content;
   box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
 

@@ -26,8 +26,6 @@ export const Main = styled.main`
 `;
 
 export const SideBar = styled.aside`
-  overflow: auto;
-
   padding-right: 2em;
   width: 35%;
   height: 75vh;
@@ -62,11 +60,10 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: flex-end;
 
-  padding: 1em;
+  padding: 0 1em 1em 1em;
   width: 100%;
   height: 75vh;
   box-sizing: border-box;
-  overflow-y: scroll;
 
   background-color: ${(props) => props.theme.primary.background};
   border-radius: 1em;
@@ -78,7 +75,30 @@ export const Container = styled.div`
   }
 `;
 
-export const Block = styled.div``;
+export const Block = styled.div`
+  &&.aside {
+    height: 20em;
+    overflow-y: auto;
+
+    //scrollbar design
+    &&:-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: ${(props) => props.theme.primary.background};
+    }
+
+    &&::-webkit-scrollbar {
+      width: 10px;
+      background-color: ${(props) => props.theme.primary.background};
+      border-radius: 0.5em;
+    }
+
+    &&::-webkit-scrollbar-thumb {
+      background-color: ${(props) => props.theme.secondary.background};
+      border: 2px solid ${(props) => props.theme.secondary.background};
+      border-radius: 0.5em;
+    }
+  }
+`;
 
 export const Picture = styled.img`
   width: 100%;
@@ -141,5 +161,32 @@ export const SendIcon = styled.img`
       width: 1.5em;
       height: 1.5em;
     }
+  }
+`;
+
+export const ScrollWrapper = styled.div`
+  padding: 0.5em;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  &&.aside {
+    height: 100%;
+  }
+  //scrollbar design
+  &&:-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #eee;
+  }
+
+  &&::-webkit-scrollbar {
+    width: 10px;
+    background-color: #eee;
+    border-radius: 0.5em;
+  }
+
+  &&::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.secondary.background};
+    border: 2px solid ${(props) => props.theme.secondary.background};
+    border-radius: 0.5em;
   }
 `;

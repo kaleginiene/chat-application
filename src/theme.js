@@ -26,8 +26,8 @@ const theme = {
     },
   },
   chat: {
-    backgroundOut: "#1f344f", //dark blue for outcomming messages
-    colorOut: "#eee", //white font for outcomming messages
+    backgroundOut: "#4772e8", //intensive blue for outcomming messages
+    colorOut: "#fff", //white font for outcomming messages
     backgroundIn: "#fff", //white incomming messages
     colorIn: "#151719", //dark grey
   },
