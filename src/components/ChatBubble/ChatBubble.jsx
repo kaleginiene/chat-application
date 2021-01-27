@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import * as S from "./ChatBubble.style";
 
 function CheckType(text) {
@@ -26,5 +27,9 @@ function ChatBubble({ chat }) {
     </>
   );
 }
+
+ChatBubble.propTypes = {
+  chat: PropTypes.array,
+};
 
 export default ChatBubble;

@@ -1,11 +1,15 @@
 .loader {
-  color: #4772e8;
-  font-size: 20px;
+  position: relative;
+
   margin: 5em auto;
   width: 1em;
   height: 1em;
+
+  color: #4772e8;
+  font-size: 20px;
+
   border-radius: 50%;
-  position: relative;
+
   text-indent: -9999em;
   -webkit-animation: load4 1.3s infinite linear;
   animation: load4 1.3s infinite linear;

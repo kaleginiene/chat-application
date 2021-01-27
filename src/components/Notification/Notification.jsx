@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import * as S from "./Notification.style";
 
-function Notification({ notification, handleClick }) {
+function Notification({ handleClick, notification }) {
   return (
     <>
       {notification && (
@@ -13,5 +14,10 @@ function Notification({ notification, handleClick }) {
     </>
   );
 }
+
+Notification.propTypes = {
+  handleClick: PropTypes.func,
+  notification: PropTypes.string,
+};
 
 export default Notification;

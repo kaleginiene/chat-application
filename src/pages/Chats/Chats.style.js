@@ -26,6 +26,10 @@ export const Main = styled.main`
 
     border-radius: 0;
   }
+  @media only screen and (min-width: 1200px) {
+    width: 70em;
+    height: 80vh;
+  }
 `;
 
 export const SideBar = styled.aside`

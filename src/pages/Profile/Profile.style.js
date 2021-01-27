@@ -28,6 +28,10 @@ export const Main = styled.main`
     background-color: ${(props) => props.theme.primary.background};
     border-radius: 0;
   }
+  @media only screen and (min-width: 1200px) {
+    width: 70em;
+    height: 80vh;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -47,6 +51,7 @@ export const Container = styled.form`
   width: 60%;
 
   background-color: ${(props) => props.theme.primary.background};
+  border: 2px solid #cbdaef;
   border-radius: 1em;
 
   text-align: center;
@@ -90,9 +95,9 @@ export const Edit = styled.div`
 
   @media only screen and (max-width: 767px) {
     background-image: url(${EditMobile});
-  }
-  &&:hover {
-    background-image: url(${EditMobile});
+    &&:hover {
+      background-image: url(${EditMobile});
+    }
   }
 `;
 

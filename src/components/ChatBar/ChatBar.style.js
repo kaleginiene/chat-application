@@ -17,7 +17,7 @@ export const Block = styled.div`
     background-color: ${(props) => props.theme.primary.background};
   }
 
-  &.selected-mobile {
+  &.active-mobile {
     position: fixed;
     justify-content: start;
 

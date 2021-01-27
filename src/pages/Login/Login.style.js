@@ -91,7 +91,7 @@ export const FlexWrapper = styled.div`
 export const Box = styled.div`
   margin: 1em 0 2em 0;
   padding: 1em;
-  width: 5em;
+  width: 4em;
   box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
 
   border: ${(props) => props.theme.border};

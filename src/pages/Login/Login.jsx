@@ -6,13 +6,13 @@ import * as S from "./Login.style";
 
 function Login() {
   const history = useHistory();
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext); //Context for storing user information
   const [notification, setNotification] = useState();
   const [formDisplay, setFormDisplay] = useState("");
 
   return (
     <S.Main>
-      <S.Container></S.Container>
+      <S.Container />
       <S.Container>
         <S.Form
           onSubmit={(e) => {

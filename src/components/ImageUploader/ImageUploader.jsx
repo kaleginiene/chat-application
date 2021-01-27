@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button, InputField, Notification } from "../../components";
 import * as S from "./ImageUploader.style";
 
@@ -30,5 +31,13 @@ function ImageUploader({
     </S.Block>
   );
 }
+
+ImageUploader.propTypes = {
+  callBackBtn: PropTypes.func,
+  callBackUpload: PropTypes.func,
+  callBackUrl: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  notification: PropTypes.string,
+};
 
 export default ImageUploader;

@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 import { ChatContext } from "../../contexts/ChatContext";
 import { Loader } from "../../components";
 import * as S from "./ChatBar.style";
@@ -13,39 +14,35 @@ function findLastMessage(chats, userID) {
       const lastItem =
         filteredChats[0].messages[filteredChats[0].messages.length - 1]; //getting the last object of the chat, that includes userID
       return lastItem.text; //returning last message
-    } else {
-      return "";
     }
+  } else {
+    return "";
   }
 }
 
 function ChatBar({ chats, users }) {
   const senderID = useContext(ChatContext); //storing user_id data for displaying chat bubbles in the chatbox
-  const [display, setDisplay] = useState(false);
   const windowWidth = window.innerWidth;
   const history = useHistory();
 
   console.log(windowWidth);
-  console.log(display);
   console.log(senderID.state);
 
   return (
     <>
-      {users.length > 0 ? (
+      {users.length > 0 ? ( //checking if there are any users
         // eslint-disable-next-line array-callback-return
         users.map((item) => {
           if (
             !senderID.state ||
-            (item.id !== senderID.state && windowWidth > 767)
+            (item.id !== senderID.state && windowWidth > 767) //if there is no senderID set and it's not mobile viewport, then return all the items
           ) {
             return (
               <S.Block
                 key={item.id}
                 onClick={() => {
-                  senderID.setState(item.id);
-                  setDisplay(!display);
+                  senderID.setState(item.id); //when the block is clicked, then store the item.id into the context
                 }}
-                display={display.toString()}
               >
                 <S.Picture src={item.image || DefaultPhoto} />
                 <S.Wrapper>
@@ -57,12 +54,12 @@ function ChatBar({ chats, users }) {
               </S.Block>
             );
           } else if (windowWidth > 767 && item.id === senderID.state) {
+            //when the viewport is wider then 767px and the senderID is set, then returning the block with the active class which returns different style for the active block
             return (
               <S.Block
                 key={item.id}
                 onClick={() => {
-                  senderID.setState(item.id);
-                  setDisplay(!display);
+                  senderID.setState(null); //if the user clicks the active block, then senderID becomes null and the chatbox resets
                 }}
                 className="active"
               >
@@ -76,14 +73,14 @@ function ChatBar({ chats, users }) {
               </S.Block>
             );
           } else if (windowWidth < 768 && item.id === senderID.state) {
+            //if the viewport is mobile and the senderID matches the item id, then return block with the different style for mobile
             return (
               <S.Block
                 key={item.id}
-                onClick={(e) => {
-                  senderID.setState(null);
-                  setDisplay(!display);
+                onClick={() => {
+                  senderID.setState(null); //if the user clicks the active block, then senderID becomes null and the chatbox resets
                 }}
-                className="selected-mobile"
+                className="active-mobile"
               >
                 <S.MobBackBtn
                   src={BackArrowMobile}
@@ -95,14 +92,20 @@ function ChatBar({ chats, users }) {
               </S.Block>
             );
           } else if (windowWidth < 768 && item.id !== senderID.state) {
+            //if the viewport is mobile and the senderID doesn't match the item id, then return nothing
             return <></>;
           }
         })
       ) : (
-        <Loader />
+        <Loader /> //if there is no chat's returning loading spinner. When the error is catched from the server, then ChatBar block disappears and the notification block appears
       )}
     </>
   );
 }
+
+ChatBar.propTypes = {
+  chats: PropTypes.array.isRequired,
+  users: PropTypes.array.isRequired,
+};
 
 export default ChatBar;

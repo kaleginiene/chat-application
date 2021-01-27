@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import * as S from "./InputField.style";
 
 function InputField({
@@ -134,5 +135,21 @@ function InputField({
       );
   }
 }
+
+InputField.propTypes = {
+  accept: PropTypes.string,
+  disabled: PropTypes.bool,
+  handleChange: PropTypes.func,
+  handleClick: PropTypes.func,
+  label: PropTypes.string,
+  minLength: PropTypes.string,
+  options: PropTypes.array,
+  placeholder: PropTypes.string,
+  radioId: PropTypes.string,
+  radioName: PropTypes.string,
+  required: PropTypes.bool,
+  type: PropTypes.string,
+  value: PropTypes.string,
+};
 
 export default InputField;

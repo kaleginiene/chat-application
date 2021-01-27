@@ -16,7 +16,9 @@ export const Block = styled.div`
   box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
 
   border-radius: ${(props) =>
-    props.type === "in" ? "0 2em 2em 2em" : "2em 0 2em 2em"};
+    props.type === "in"
+      ? "0 2em 2em 2em"
+      : "2em 0 2em 2em"}; //border radius depending on the message type
 
   background-color: ${(
     props //background color depending on message type

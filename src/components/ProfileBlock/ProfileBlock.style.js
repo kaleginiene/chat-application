@@ -6,7 +6,6 @@ export const Block = styled.div`
 
   padding: 1em;
   max-height: 30%;
-  box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
 
   background-color: ${(props) => props.theme.primary.background};
   border-radius: 1em;
