@@ -8,6 +8,7 @@ import {
   ChatBar,
   ChatBubble,
   InputField,
+  Notification,
   ProfileBlock,
 } from "../../components";
 import * as S from "./Chats.style";
@@ -74,29 +75,33 @@ function createNewChat(data, setData, message, senderID) {
 
 function Chats() {
   const history = useHistory();
-  const [data, setData] = useState(); //storing data from API.
+  const [data, setData] = useState(undefined); //storing data from API.
   const senderID = useContext(ChatContext); //storing chatID data for displaying chat bubbles in the chatbox
   const userInfo = useContext(UserContext);
-  console.log(data);
   const [message, setMessage] = useState({
     id: null,
     user_id: "user",
     text: "",
   }); //storing message from an input
+  const [notification, setNotification] = useState();
+  const windowWidth = window.innerWidth;
 
-  console.log(senderID.state);
-  console.log(message);
+  console.log(data);
 
   useEffect(() => {
     //getting data from API
-    fetch("https://api.jsonbin.io/b/60098ea2a3d8a0580c345ecb/9", {
+    fetch("https://api.jsonbin.io/b/60098ea2a3d8a0580c345ecb/10", {
       headers: {
         "secret-key":
           "$2b$10$QSzsWWZX0dZ9oTgYIiTRiu3aQI9EEFsc/amKTuuQ0dGl3lLeFV5ju",
       },
     })
       .then((res) => res.json())
-      .then((data) => setData(data));
+      .then((data) => setData(data))
+      .catch((error) => {
+        console.log(error.message);
+        setNotification("Something went wrong with the server");
+      });
   }, [setData]);
 
   return (
@@ -109,12 +114,22 @@ function Chats() {
           name={userInfo.state.name + " " + userInfo.state.surname}
           city={userInfo.state.city}
         />
-        <S.Title>Conversations</S.Title>
+        {windowWidth > 767 ? (
+          <S.Title>Conversations</S.Title>
+        ) : windowWidth < 768 && !senderID.state ? (
+          <S.Title>Conversations</S.Title>
+        ) : (
+          <></>
+        )}
         <S.Block className="aside">
-          <ChatBar
-            chats={data ? data.results.chats : []}
-            users={data ? data.results.users : []}
-          />
+          {data !== "undefined" ? (
+            <ChatBar
+              chats={data ? data.results.chats : []}
+              users={data ? data.results.users : []}
+            />
+          ) : (
+            <Notification notification={notification} />
+          )}
         </S.Block>
       </S.SideBar>
       <S.Wrapper>
