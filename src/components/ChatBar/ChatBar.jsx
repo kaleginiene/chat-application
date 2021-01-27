@@ -29,10 +29,13 @@ function ChatBar({ chats, users }) {
 
   return (
     <>
-      {users.length > 0 && !display ? (
+      {users.length > 0 ? (
         // eslint-disable-next-line array-callback-return
         users.map((item) => {
-          if (item.id !== senderID.state) {
+          if (
+            !senderID.state ||
+            (item.id !== senderID.state && windowWidth > 767)
+          ) {
             return (
               <S.Block
                 key={item.id}
@@ -51,7 +54,7 @@ function ChatBar({ chats, users }) {
                 </S.Wrapper>
               </S.Block>
             );
-          } else if (item.id === senderID.state) {
+          } else if (windowWidth > 767 && item.id === senderID.state) {
             return (
               <S.Block
                 key={item.id}
@@ -70,24 +73,25 @@ function ChatBar({ chats, users }) {
                 </S.Wrapper>
               </S.Block>
             );
+          } else if (windowWidth < 768 && item.id === senderID.state) {
+            return (
+              <S.Block
+                key={item.id}
+                onClick={(e) => {
+                  senderID.setState(null);
+                  setDisplay(!display);
+                  console.log("selected");
+                }}
+                className="selected"
+              >
+                <S.Picture src={item.image || DefaultPhoto} />
+                <S.Title>{item.name + " " + item.surname}</S.Title>
+              </S.Block>
+            );
+          } else if (windowWidth < 768 && item.id !== senderID.state) {
+            return <></>;
           }
         })
-      ) : users.length > 0 && display && windowWidth < 678 ? (
-        users
-          .filter((user) => user.id === senderID.state)
-          .map((item) => (
-            <S.Block
-              key={item.id}
-              onClick={(e) => {
-                senderID.setState(null);
-                setDisplay(!display);
-              }}
-              className="selected"
-            >
-              <S.Picture src={item.image || DefaultPhoto} />
-              <S.Title>{item.name + " " + item.surname}</S.Title>
-            </S.Block>
-          ))
       ) : (
         <Loader />
       )}
