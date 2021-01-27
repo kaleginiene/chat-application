@@ -17,10 +17,16 @@ export const Block = styled.div`
     background-color: ${(props) => props.theme.primary.background};
   }
 
-  &.selected {
+  &.selected-mobile {
+    position: fixed;
     justify-content: center;
 
     padding: 0em 1em;
+    width: 100%;
+    top: 0;
+
+    background-color: #fff;
+    border-radius: 0;
 
     img {
       width: 3em;

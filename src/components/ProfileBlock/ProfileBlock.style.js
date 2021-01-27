@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { EditIcon, EditIconHover } from "../../assets";
+import { EditIcon, EditIconHover, EditMobile } from "../../assets";
 
 export const Block = styled.div`
   position: relative;
@@ -15,14 +15,11 @@ export const Block = styled.div`
   text-align: center;
 
   @media only screen and (max-width: 767px) {
-    position: fixed;
     display: flex;
     align-items: center;
-    z-index: 9;
 
     padding: 0.3em 1em;
     width: 100%;
-    top: 0;
     box-sizing: border-box;
 
     background-color: ${(props) => props.theme.secondary.background};
@@ -46,6 +43,10 @@ export const Edit = styled.div`
   }
 
   cursor: pointer;
+
+  @media only screen and (max-width: 767px) {
+    background-image: url(${EditMobile});
+  }
 `;
 
 export const Picture = styled.img`
@@ -78,5 +79,19 @@ export const Title = styled.h4`
 export const Subtitle = styled.h5`
   @media only screen and (max-width: 767px) {
     display: none;
+  }
+`;
+
+export const MobBackBtn = styled.img`
+  display: none;
+
+  @media only screen and (max-width: 767px) {
+    display: block;
+
+    margin-right: 1em;
+    width: 1.5em;
+    height: 1.5em;
+
+    object-fit: cover;
   }
 `;

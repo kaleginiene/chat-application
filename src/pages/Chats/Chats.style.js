@@ -35,7 +35,6 @@ export const SideBar = styled.aside`
   box-sizing: border-box;
 
   @media only screen and (max-width: 767px) {
-    margin-top: 4em;
     padding: 0;
     width: 100%;
     height: fit-content;
@@ -76,9 +75,12 @@ export const Container = styled.div`
   border-radius: 1em;
 
   @media only screen and (max-width: 767px) {
-    display: ${(props) => (props.display !== null ? "block" : "none")};
+    display: ${(props) => (props.display !== null ? "flex" : "none")};
+    flex-direction: column;
 
+    margin-top: 1.5em;
     height: fit-content;
+    min-height: 82vh;
 
     padding: 0 0 1em 0;
     border-radius: 0;

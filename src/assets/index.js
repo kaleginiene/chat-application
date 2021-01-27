@@ -1,9 +1,11 @@
 export { default as BackArrow } from "./back-arrow.svg";
+export { default as BackArrowMobile } from "./back-mobile.svg";
 export { default as Background } from "./background.png";
 export { default as ChattingPeople } from "./chatting-people.jpg";
 export { default as DefaultPhoto } from "./default.svg";
 export { default as EditIcon } from "./edit.svg";
 export { default as EditIconHover } from "./edithover.svg";
+export { default as EditMobile } from "./editmobile.svg";
 export { default as ExitIcon } from "./exit.svg";
 export { default as ExitIconHover } from "./exithover.svg";
 export { default as SendIcon } from "./send-button.svg";

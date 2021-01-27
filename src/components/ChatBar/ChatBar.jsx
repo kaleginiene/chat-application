@@ -80,9 +80,8 @@ function ChatBar({ chats, users }) {
                 onClick={(e) => {
                   senderID.setState(null);
                   setDisplay(!display);
-                  console.log("selected");
                 }}
-                className="selected"
+                className="selected-mobile"
               >
                 <S.Picture src={item.image || DefaultPhoto} />
                 <S.Title>{item.name + " " + item.surname}</S.Title>

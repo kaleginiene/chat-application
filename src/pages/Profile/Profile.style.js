@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { EditIcon, EditIconHover } from "../../assets";
 
 export const Main = styled.main`
@@ -17,13 +16,16 @@ export const Main = styled.main`
   border-radius: 1em;
 
   @media only screen and (max-width: 767px) {
-    flex-direction: column-reverse;
+    flex-direction: column;
 
     margin: 0;
     padding: 0;
     width: 100%;
     height: fit-content;
+    min-height: 100vh;
+    box-shadow: none;
 
+    background-color: ${(props) => props.theme.primary.background};
     border-radius: 0;
   }
 `;
@@ -60,7 +62,8 @@ export const Container = styled.form`
   }
 
   @media only screen and (max-width: 767px) {
-    margin: 4em 0 0 0;
+    position: inherit;
+    margin: 0;
     width: 100%;
     height: auto;
     box-sizing: border-box;
@@ -84,6 +87,10 @@ export const Edit = styled.div`
   }
 
   cursor: pointer;
+
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 
 export const Title = styled.h1``;
@@ -122,17 +129,12 @@ export const Box = styled.div`
   }
 `;
 
-export const StyledLink = styled(Link)`
-  display: flex;
-  align-items: center;
-
-  text-align: left;
-  text-decoration: none;
-`;
-
 export const BackIcon = styled.img`
-  margin-right: 0.5em;
+  position: absolute;
   width: 1.5em;
+  bottom: 1em;
+  left: 1em;
 
   object-fit: cover;
+  cursor: pointer;
 `;

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   ImageUploader,
@@ -29,12 +30,50 @@ function checkValidUrl(imgUploadUrl, imgUrl, setNotification) {
   }
 }
 
+function uploadImgSubmit(
+  imgUploadUrl,
+  imgUrl,
+  userInfo,
+  setNotification,
+  event,
+  setUrl,
+  setUpload
+) {
+  if (checkValidUrl(imgUploadUrl, imgUrl, setNotification)) {
+    if (imgUrl && imgUploadUrl) {
+      setNotification("Only one picture is allowed");
+    } else if (imgUrl) {
+      userInfo.setState({
+        ...userInfo.state,
+        image: imgUrl,
+      });
+      setNotification(undefined);
+      event.target.reset();
+      setUrl(undefined);
+    } else if (imgUploadUrl) {
+      userInfo.setState({
+        ...userInfo.state,
+        image: imgUploadUrl,
+      });
+      setNotification(undefined);
+      event.target.reset();
+      setUpload(undefined);
+    }
+  } else {
+    setNotification("URL or location of the image is invalid");
+    event.target.reset();
+  }
+}
+
 function Profile() {
   const userInfo = useContext(UserContext);
   const [inputState, setInputState] = useState(true);
   const [imgUrl, setUrl] = useState();
   const [imgUploadUrl, setUpload] = useState();
   const [notification, setNotification] = useState("");
+  const history = useHistory();
+  const windowWidth = window.innerWidth;
+
   console.log(imgUrl);
   console.log(imgUploadUrl);
   console.log(notification);
@@ -48,52 +87,39 @@ function Profile() {
           city={userInfo.state.city}
           classname="profile"
         />
-        <ImageUploader
-          callBackBtn={() => setNotification("")}
-          callBackUpload={(e) => {
-            if (!imgUrl) {
-              const files = e.target.files[0];
-              setUpload(URL.createObjectURL(files));
-            } else {
-              setNotification("Only one picture is allowed");
-            }
-          }}
-          callBackUrl={(e) => {
-            if (!imgUploadUrl) {
-              setUrl(e.target.value);
-            } else {
-              setNotification("Only one picture is allowed");
-            }
-          }}
-          handleSubmit={(e) => {
-            e.preventDefault();
-            if (checkValidUrl(imgUploadUrl, imgUrl, setNotification)) {
-              if (imgUrl && imgUploadUrl) {
+        {windowWidth > 767 && (
+          <ImageUploader
+            callBackBtn={() => setNotification("")}
+            callBackUpload={(e) => {
+              if (!imgUrl) {
+                const files = e.target.files[0];
+                setUpload(URL.createObjectURL(files));
+              } else {
                 setNotification("Only one picture is allowed");
-              } else if (imgUrl) {
-                userInfo.setState({
-                  ...userInfo.state,
-                  image: imgUrl,
-                });
-                setNotification(undefined);
-                e.target.reset();
-                setUrl(undefined);
-              } else if (imgUploadUrl) {
-                userInfo.setState({
-                  ...userInfo.state,
-                  image: imgUploadUrl,
-                });
-                setNotification(undefined);
-                e.target.reset();
-                setUpload(undefined);
               }
-            } else {
-              setNotification("URL or location of the image is invalid");
-              e.target.reset();
-            }
-          }}
-          notification={notification}
-        />
+            }}
+            callBackUrl={(e) => {
+              if (!imgUploadUrl) {
+                setUrl(e.target.value);
+              } else {
+                setNotification("Only one picture is allowed");
+              }
+            }}
+            handleSubmit={(e) => {
+              e.preventDefault();
+              uploadImgSubmit(
+                imgUploadUrl,
+                imgUrl,
+                userInfo,
+                setNotification,
+                e,
+                setUrl,
+                setUpload
+              );
+            }}
+            notification={notification}
+          />
+        )}
       </S.Wrapper>
       <S.Container
         onSubmit={(e) => {
@@ -173,9 +199,11 @@ function Profile() {
           }}
         />
         <Button type="submit">Update</Button>
-        <S.StyledLink to="/chats">
-          <S.BackIcon src={BackArrow} alt="Go back" /> Back
-        </S.StyledLink>
+        <S.BackIcon
+          src={BackArrow}
+          alt="Go back"
+          onClick={() => history.goBack()}
+        />
       </S.Container>
     </S.Main>
   );
