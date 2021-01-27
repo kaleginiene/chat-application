@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import EditIcon from "../../assets/edit.svg";
-import EditIconHover from "../../assets/edithover.svg";
+import { EditIcon, EditIconHover } from "../../assets";
 
 export const Main = styled.main`
   display: flex;
@@ -54,8 +53,12 @@ export const Container = styled.form`
 
   input:disabled {
     background-color: #fff;
+    border: ${(props) => props.theme.border};
 
     cursor: pointer;
+  }
+  input {
+    border: 2px solid #1f344f;
   }
 
   @media only screen and (max-width: 767px) {

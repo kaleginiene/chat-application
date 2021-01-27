@@ -8,14 +8,25 @@ import {
   ProfileBlock,
 } from "../../components";
 import * as S from "./Profile.style";
-import DefaultPhoto from "../../assets/default.png";
+import { DefaultPhoto } from "../../assets";
 
-function checkValidUrl(imgUrl) {
-  if (imgUrl && imgUrl.includes("blob:")) {
-    return "exists";
-  } else {
+function checkValidUrl(imgUploadUrl, imgUrl, setNotification) {
+  if (imgUploadUrl && imgUploadUrl.includes("blob:")) {
+    console.log("true");
+    return true;
+  } else if (imgUrl) {
     const myRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
-    console.log(myRegex.test(imgUrl));
+    const test = myRegex.test(imgUrl);
+    if (test) {
+      console.log(test);
+      return test;
+    } else {
+      setNotification("Invalid image url");
+    }
+  } else {
+    console.log("false");
+    setNotification("Invalid image url");
+    return false;
   }
 }
 
@@ -23,10 +34,12 @@ function Profile() {
   const userInfo = useContext(UserContext);
   const [inputState, setInputState] = useState(true);
   const [imgUrl, setUrl] = useState();
-  const [notification, setNotification] = useState();
+  const [imgUploadUrl, setUpload] = useState();
+  const [notification, setNotification] = useState("");
   const history = useHistory();
   console.log(imgUrl);
-  checkValidUrl(imgUrl);
+  console.log(imgUploadUrl);
+  console.log(notification);
 
   return (
     <S.Main>
@@ -38,19 +51,50 @@ function Profile() {
           classname="profile"
         />
         <ImageUploader
+          callBackBtn={() => setNotification("")}
           callBackUpload={(e) => {
-            if (imgUrl.length === 0) {
+            if (!imgUrl) {
               const files = e.target.files[0];
-              setUrl(URL.createObjectURL(files));
+              setUpload(URL.createObjectURL(files));
+            } else {
+              setNotification("Only one picture is allowed");
             }
           }}
           callBackUrl={(e) => {
-            setUrl(e.target.value);
+            if (!imgUploadUrl) {
+              setUrl(e.target.value);
+            } else {
+              setNotification("Only one picture is allowed");
+            }
           }}
           handleSubmit={(e) => {
             e.preventDefault();
-            userInfo.setState({ ...userInfo.state, image: imgUrl });
+            if (checkValidUrl(imgUploadUrl, imgUrl, setNotification)) {
+              if (imgUrl && imgUploadUrl) {
+                setNotification("Only one picture is allowed");
+              } else if (imgUrl) {
+                userInfo.setState({
+                  ...userInfo.state,
+                  image: imgUrl,
+                });
+                setNotification(undefined);
+                e.target.reset();
+                setUrl(undefined);
+              } else if (imgUploadUrl) {
+                userInfo.setState({
+                  ...userInfo.state,
+                  image: imgUploadUrl,
+                });
+                setNotification(undefined);
+                e.target.reset();
+                setUpload(undefined);
+              }
+            } else {
+              setNotification("URL or location of the image is invalid");
+              e.target.reset();
+            }
           }}
+          notification={notification}
         />
       </S.Wrapper>
       <S.Container

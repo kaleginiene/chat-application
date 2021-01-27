@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../contexts/ChatContext";
 import * as S from "./ChatBar.style";
-import DefaultPhoto from "../../assets/default.png";
+import { DefaultPhoto } from "../../assets";
 
 function findLastMessage(chats, userID) {
   if (chats.length > 0) {

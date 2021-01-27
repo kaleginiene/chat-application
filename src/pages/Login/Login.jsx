@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useHistory } from "react-router-dom";
-import { Button, InputField } from "../../components";
+import { Button, InputField, Notification } from "../../components";
 import * as S from "./Login.style";
 
 function Login() {
@@ -18,6 +18,7 @@ function Login() {
           onSubmit={(e) => {
             e.preventDefault();
             if (
+              userInfo.state &&
               userInfo.state.email.length > 3 &&
               userInfo.state.password.length > 6
             ) {
@@ -31,7 +32,10 @@ function Login() {
           }}
         >
           <S.Title>Login</S.Title>
-          {notification && <S.Notification>{notification}</S.Notification>}
+          <Notification
+            notification={notification}
+            handleClick={() => setNotification("")}
+          />
           <InputField
             type="email"
             placeholder="e.g.: email@email"
@@ -84,33 +88,35 @@ function Login() {
                 })
               }
             />
-            <InputField
-              type="radio"
-              radioId="male"
-              label="Male"
-              radioName="gender"
-              handleChange={(e) =>
-                userInfo.setState({ ...userInfo.state, gender: e.target.id })
-              }
-            />
-            <InputField
-              type="radio"
-              radioId="female"
-              label="Female"
-              radioName="gender"
-              handleChange={(e) =>
-                userInfo.setState({ ...userInfo.state, gender: e.target.id })
-              }
-            />
-            <InputField
-              type="radio"
-              radioId="other"
-              label="Other"
-              radioName="gender"
-              handleChange={(e) =>
-                userInfo.setState({ ...userInfo.state, gender: e.target.id })
-              }
-            />
+            <S.FlexWrapper>
+              <S.Box
+                gender={userInfo.state.gender}
+                value="female"
+                onClick={() =>
+                  userInfo.setState({ ...userInfo.state, gender: "female" })
+                }
+              >
+                Female
+              </S.Box>
+              <S.Box
+                gender={userInfo.state.gender}
+                value="male"
+                onClick={() =>
+                  userInfo.setState({ ...userInfo.state, gender: "male" })
+                }
+              >
+                Male
+              </S.Box>
+              <S.Box
+                gender={userInfo.state.gender}
+                value="other"
+                onClick={() =>
+                  userInfo.setState({ ...userInfo.state, gender: "other" })
+                }
+              >
+                Other
+              </S.Box>
+            </S.FlexWrapper>
             <InputField
               type="text"
               placeholder="City"

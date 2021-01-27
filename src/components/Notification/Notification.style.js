@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import ExitIcon from "../../assets/exit.svg";
-import ExitHover from "../../assets/exithover.svg";
+import { ExitIcon, ExitIconHover } from "../../assets";
 
 export const Notification = styled.div`
   position: relative;
@@ -25,7 +24,7 @@ export const Exit = styled.div`
   background-size: cover;
 
   &&:hover {
-    background-image: url(${ExitHover});
+    background-image: url(${ExitIconHover});
   }
 
   cursor: pointer;

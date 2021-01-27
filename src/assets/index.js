@@ -1,0 +1,9 @@
+export { default as Background } from "./background.png";
+export { default as ChattingPeople } from "./chatting-people.jpg";
+export { default as DefaultPhoto } from "./default.png";
+export { default as EditIcon } from "./edit.svg";
+export { default as EditIconHover } from "./edithover.svg";
+export { default as ExitIcon } from "./exit.svg";
+export { default as ExitIconHover } from "./exithover.svg";
+export { default as SendIcon } from "./send-button.svg";
+export { default as SendIconMobile } from "./send-button-mobile.svg";
