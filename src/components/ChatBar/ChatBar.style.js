@@ -5,6 +5,7 @@ export const Block = styled.div`
   align-items: center;
 
   margin-bottom: 0.5em;
+  margin-right: 0.5em;
   padding: 0.5em 0.5em;
   height: 5em;
   max-width: 100%;
@@ -14,6 +15,25 @@ export const Block = styled.div`
 
   &.active {
     background-color: ${(props) => props.theme.primary.background};
+  }
+
+  &.selected {
+    justify-content: center;
+
+    padding: 0em 1em;
+
+    img {
+      width: 3em;
+      height: 3em;
+    }
+    h3 {
+      margin: 0;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    margin: 0;
+    padding: 0.5em 1em;
   }
 `;
 
@@ -47,6 +67,5 @@ export const LastMessage = styled.p`
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  text-align: justify;
   font-size: 0.7em;
 `;
