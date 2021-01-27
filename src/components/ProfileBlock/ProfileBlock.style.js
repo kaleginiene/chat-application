@@ -18,7 +18,7 @@ export const Block = styled.div`
     display: flex;
     align-items: center;
 
-    padding: 0.3em 1em;
+    padding: 0.5em 1em;
     width: 100%;
     box-sizing: border-box;
 
@@ -89,8 +89,8 @@ export const MobBackBtn = styled.img`
     display: block;
 
     margin-right: 1em;
-    width: 1.5em;
-    height: 1.5em;
+    width: 2em;
+    height: 2em;
 
     object-fit: cover;
   }

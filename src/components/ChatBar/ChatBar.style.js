@@ -19,19 +19,18 @@ export const Block = styled.div`
 
   &.selected-mobile {
     position: fixed;
-    justify-content: center;
+    justify-content: start;
 
     padding: 0em 1em;
     width: 100%;
     top: 0;
+    z-index: 9;
 
-    background-color: #fff;
+    background-color: ${(props) => props.theme.secondary.background};
     border-radius: 0;
 
-    img {
-      width: 3em;
-      height: 3em;
-    }
+    color: ${(props) => props.theme.secondary.font.color};
+
     h3 {
       margin: 0;
     }
@@ -51,6 +50,11 @@ export const Picture = styled.img`
   border-radius: 100%;
 
   object-fit: cover;
+
+  @media only screen and (max-width: 767px) {
+    width: 3em;
+    height: 3em;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -74,4 +78,18 @@ export const LastMessage = styled.p`
   white-space: nowrap;
 
   font-size: 0.7em;
+`;
+
+export const MobBackBtn = styled.img`
+  display: none;
+
+  @media only screen and (max-width: 767px) {
+    display: block;
+
+    margin-right: 2em;
+    width: 2em;
+    height: 2em;
+
+    object-fit: cover;
+  }
 `;

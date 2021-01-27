@@ -20,7 +20,7 @@ function Login() {
             if (
               userInfo.state &&
               userInfo.state.email.length > 3 &&
-              userInfo.state.password.length > 6
+              userInfo.state.password.length >= 6
             ) {
               e.target.style.display = "none"; //on submit form disapears
               setFormDisplay("show");

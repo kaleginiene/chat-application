@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { ChatContext } from "../../contexts/ChatContext";
 import { Loader } from "../../components";
 import * as S from "./ChatBar.style";
-import { DefaultPhoto } from "../../assets";
+import { BackArrowMobile, DefaultPhoto } from "../../assets";
 
 function findLastMessage(chats, userID) {
   if (chats.length > 0) {
@@ -22,6 +23,7 @@ function ChatBar({ chats, users }) {
   const senderID = useContext(ChatContext); //storing user_id data for displaying chat bubbles in the chatbox
   const [display, setDisplay] = useState(false);
   const windowWidth = window.innerWidth;
+  const history = useHistory();
 
   console.log(windowWidth);
   console.log(display);
@@ -83,6 +85,11 @@ function ChatBar({ chats, users }) {
                 }}
                 className="selected-mobile"
               >
+                <S.MobBackBtn
+                  src={BackArrowMobile}
+                  alt="Back button"
+                  onClick={() => history.push("/chats")}
+                />
                 <S.Picture src={item.image || DefaultPhoto} />
                 <S.Title>{item.name + " " + item.surname}</S.Title>
               </S.Block>

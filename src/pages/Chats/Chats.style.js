@@ -80,7 +80,7 @@ export const Container = styled.div`
 
     margin-top: 1.5em;
     height: fit-content;
-    min-height: 82vh;
+    min-height: 90vh;
 
     padding: 0 0 1em 0;
     border-radius: 0;

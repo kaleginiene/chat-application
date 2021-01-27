@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { EditIcon, EditIconHover } from "../../assets";
+import { EditIcon, EditIconHover, EditMobile } from "../../assets";
 
 export const Main = styled.main`
   display: flex;
@@ -89,7 +89,10 @@ export const Edit = styled.div`
   cursor: pointer;
 
   @media only screen and (max-width: 767px) {
-    display: none;
+    background-image: url(${EditMobile});
+  }
+  &&:hover {
+    background-image: url(${EditMobile});
   }
 `;
 
