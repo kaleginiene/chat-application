@@ -1,3 +1,4 @@
+export { default as BackArrow } from "./back-arrow.svg";
 export { default as Background } from "./background.png";
 export { default as ChattingPeople } from "./chatting-people.jpg";
 export { default as DefaultPhoto } from "./default.png";

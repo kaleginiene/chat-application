@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { EditIcon, EditIconHover } from "../../assets";
 
 export const Main = styled.main`
@@ -120,4 +121,19 @@ export const Box = styled.div`
   @media only screen and (max-width: 767px) {
     margin: 2em 0 0 0;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+
+  text-align: left;
+  text-decoration: none;
+`;
+
+export const BackIcon = styled.img`
+  margin-right: 0.5em;
+  width: 1.5em;
+
+  object-fit: cover;
 `;

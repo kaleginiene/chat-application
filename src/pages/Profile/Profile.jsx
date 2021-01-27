@@ -8,7 +8,7 @@ import {
   ProfileBlock,
 } from "../../components";
 import * as S from "./Profile.style";
-import { DefaultPhoto } from "../../assets";
+import { BackArrow, DefaultPhoto } from "../../assets";
 
 function checkValidUrl(imgUploadUrl, imgUrl, setNotification) {
   if (imgUploadUrl && imgUploadUrl.includes("blob:")) {
@@ -100,6 +100,7 @@ function Profile() {
       <S.Container
         onSubmit={(e) => {
           e.preventDefault();
+          setInputState(true);
         }}
       >
         <S.Edit
@@ -173,14 +174,10 @@ function Profile() {
             userInfo.setState({ ...userInfo.state, city: e.target.value });
           }}
         />
-        <Button
-          type="submit"
-          handleClick={() => {
-            history.push("/chats");
-          }}
-        >
-          Update
-        </Button>
+        <Button type="submit">Update</Button>
+        <S.StyledLink to="/chats">
+          <S.BackIcon src={BackArrow} alt="Go back" /> Back
+        </S.StyledLink>
       </S.Container>
     </S.Main>
   );
