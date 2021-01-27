@@ -13,6 +13,10 @@ body {
 
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.theme.primary.font.color};
+
+  @media only screen and (max-width: 767px) {
+    background-color: #fff;
+  }
 }
 `;
 

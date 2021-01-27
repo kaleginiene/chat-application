@@ -22,7 +22,7 @@ const theme = {
       background: "#1f344f", //dark blue
     },
     font: {
-      color: "#fff", //dark
+      color: "#fff", //white
     },
   },
   chat: {

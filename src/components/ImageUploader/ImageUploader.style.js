@@ -11,6 +11,10 @@ export const Block = styled.div`
   border: 2px solid #cbdaef;
 
   text-align: center;
+
+  @media only screen and (max-width: 767px) {
+    border-radius: 0;
+  }
 `;
 
 export const Title = styled.h2``;

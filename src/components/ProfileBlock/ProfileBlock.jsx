@@ -5,7 +5,7 @@ function ProfileBlock({ handleClick, imgUrl, name, city }) {
   return (
     <S.Block>
       <S.Edit onClick={handleClick} />
-      <S.Picture src={imgUrl} alt="User image" />
+      <S.Picture src={imgUrl} alt="User image" onClick={handleClick} />
       <S.Title>{name}</S.Title>
       <S.Subtitle>{city}</S.Subtitle>
     </S.Block>

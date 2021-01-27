@@ -17,21 +17,18 @@ export const Main = styled.main`
   border-radius: 1em;
 
   @media only screen and (max-width: 767px) {
-    display: block;
+    flex-direction: column-reverse;
 
-    margin: 0.5em;
-    padding: 1em;
-    width: 95%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
     height: fit-content;
-    box-sizing: border-box;
+
+    border-radius: 0;
   }
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   width: 40%;
 
   @media only screen and (max-width: 767px) {
@@ -63,10 +60,12 @@ export const Container = styled.form`
   }
 
   @media only screen and (max-width: 767px) {
-    margin: 1em 0 0 0;
+    margin: 4em 0 0 0;
     width: 100%;
     height: auto;
     box-sizing: border-box;
+
+    border-radius: 0;
   }
 `;
 

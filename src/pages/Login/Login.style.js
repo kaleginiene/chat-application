@@ -108,14 +108,11 @@ export const Box = styled.div`
 
   @media only screen and (max-width: 767px) {
     margin: 2em 0 0 0;
+    width: 3.5em;
   }
 `;
 
-export const SubTitle = styled.h2`
-  @media only screen and (max-width: 767px) {
-    color: #fff;
-  }
-`;
+export const SubTitle = styled.h2``;
 
 export const Notification = styled.div`
   padding: 1em;

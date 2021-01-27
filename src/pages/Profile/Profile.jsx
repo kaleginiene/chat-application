@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import {
   Button,
@@ -36,7 +35,6 @@ function Profile() {
   const [imgUrl, setUrl] = useState();
   const [imgUploadUrl, setUpload] = useState();
   const [notification, setNotification] = useState("");
-  const history = useHistory();
   console.log(imgUrl);
   console.log(imgUploadUrl);
   console.log(notification);
