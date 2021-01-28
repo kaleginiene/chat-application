@@ -73,6 +73,7 @@ function sendMessageSubmit(
   setNotification,
   setData
 ) {
+  event.preventDefault();
   if (message.text.length > 0) {
     const theChat = data.results.chats.filter(
       //filtering chat by userID from API data
