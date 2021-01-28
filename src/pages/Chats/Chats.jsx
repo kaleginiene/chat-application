@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import ScrollableFeed from "react-scrollable-feed";
 import { useHistory } from "react-router-dom";
 import { ChatContext } from "../../contexts/ChatContext";
 import { UserContext } from "../../contexts/UserContext";
@@ -13,11 +12,11 @@ import {
 } from "../../components";
 import * as S from "./Chats.style";
 import {
+  AddChat,
   DefaultPhoto,
   EditIcon,
   SendIcon,
   SendIconMobile,
-  ChattingPeople,
 } from "../../assets";
 
 function postMessage(data) {
@@ -37,39 +36,134 @@ function postMessage(data) {
     .catch((err) => console.log(err));
 }
 
-function setMessageID(data, senderID) {
+function setMessageID(data, senderID, vanishMode) {
   //setting the message id for the new chats
   const theChat = data.results.chats.filter(
     //filtering messages by userID from API data
     (chat) => chat.user_id === senderID.state
   );
-  if (theChat.length === 1) {
-    //if there were a chat with the user, then id of the new message is going to be messages quantity + 1
+  if (theChat.length === 1 && !vanishMode) {
+    //if there were a chat with the user and the vanish mode is false, then id of the new message is going to be messages quantity + 1
     const newMsgID = theChat[0].messages.length + 1;
-    console.log("additional message");
     return newMsgID;
-  } else {
+  } else if (theChat.length === 1 && vanishMode) {
+    //if there were a chat with the user and the vanish mode is true, then create an ID for vanishing messages
+    const newMsgID = theChat[0].vanish_messages.length + 1;
+    return newMsgID;
+  } else if (theChat.length === 0) {
     //if there were no messages with the user, then for the first message setting the id 1
-    console.log("new message");
-    console.log(theChat);
     return 1;
+  } else {
+    //if theChat.length is more than 1 it means,that there are duplicates and something went wrong
+    console.log("Wrong user. Try to login again");
   }
 }
 
+//sending message function, when user submits
+function sendMessageSubmit(
+  data,
+  event,
+  message,
+  senderID,
+  setMessage,
+  setData
+) {
+  if (message.text.length > 0) {
+    const theChat = data.results.chats.filter(
+      //filtering chat by userID from API data
+      (chat) => chat.user_id === senderID.state
+    );
+    if (theChat.length === 1) {
+      theChat[0].messages.push(message);
+    } else {
+      createNewChat(data, setData, message, senderID);
+    }
+    postMessage(data); //run function for posting message into the API
+    setMessage({ ...message, id: null, text: "" }); //when the message is sent, reset message state and the form event targets
+    event.target.reset();
+  }
+}
+
+//creating new chat if there isn't any
 function createNewChat(data, setData, message, senderID) {
-  const chats = data.results.chats;
-  const newChatID = chats.length + 1;
+  const chats = data.results.chats; // chats from API
+  const newChatID = chats.length + 1; //new ID is calculatated
   const newChat = {
+    //set newChat values
     id: newChatID,
     user_id: senderID.state,
     messages: [],
   };
   if (message.id !== null && message.text.length > 0) {
-    newChat.messages.push(message);
+    newChat.messages.push(message); //if there is a message, the push data into newChat array
     chats.push(newChat);
-    setData(data);
+    setData(data); //updateing data, that there wouldnt be necessary to refresh the page
   } else {
     return chats;
+  }
+}
+
+function filterVanishModeUser(data, setChatBar, vanishModeUser) {
+  //Filtering chatBar by input value
+  if (data) {
+    const users = data.results.users;
+
+    if (vanishModeUser) {
+      const filteredUsers = users.filter(
+        //filtering values if it includes the input value
+        (x) =>
+          x.name.toLowerCase().includes(vanishModeUser.toLowerCase()) ||
+          x.surname.toLowerCase().includes(vanishModeUser.toLowerCase())
+      );
+      if (filteredUsers.length > 0 && vanishModeUser.length > 0) {
+        setChatBar(filteredUsers); //set chatbar list by filtered value
+      } else {
+        setChatBar(users); //if there is no such value return all users
+      }
+    } else {
+      setChatBar(users); //if there isn't vanish mode, than return all users
+    }
+  }
+}
+
+//-----Functions for sending messages on VANISH MODE
+function sendVanishModeMessage(
+  data,
+  event,
+  message,
+  senderID,
+  setMessage,
+  setData,
+  setVanishedMessageID
+) {
+  event.preventDefault();
+  if (message.text.length > 0) {
+    const theChat = data.results.chats.filter(
+      //filtering chat by userID from API data
+      (chat) => chat.user_id === senderID.state
+    );
+
+    if (theChat.length === 1) {
+      theChat[0].vanish_messages.push(message); //if the chat is the one, push the message into the vanish_messages
+    } else if (theChat.length === 0) {
+      createNewChat(data, setData, message, senderID); //if there is any chats, then run function to create new chat
+    }
+
+    postMessage(data); //post updated data into the server
+
+    const messageIndex = theChat[0].vanish_messages.findIndex(
+      (x) => x.id === message.id
+    ); //find the index of the message
+
+    setTimeout(() => {
+      theChat[0].vanish_messages.splice(messageIndex, 1); //after 10sec remove the message from the vanish messages array
+      setVanishedMessageID(message.id); //setting the message id, so that it wouldn't be necesarry to refresh the page
+      postMessage(data); //post to the API new data
+    }, 10000);
+
+    setMessage({ ...message, id: null, text: "" }); //reset meessage state after updating data into the server
+    setVanishedMessageID(null); //reset vanished message id
+    event.target.reset();
   }
 }
 
@@ -85,8 +179,10 @@ function Chats() {
   }); //storing message from an input
   const [notification, setNotification] = useState();
   const windowWidth = window.innerWidth;
-
-  console.log(data);
+  const [vanishMode, setVanishMode] = useState(false);
+  const [vanishModeUser, setVanishModeUser] = useState("");
+  const [chatBar, setChatBar] = useState([]);
+  const [vanishedMessageID, setVanishedMessageID] = useState(null);
 
   useEffect(() => {
     //getting data from API
@@ -97,7 +193,10 @@ function Chats() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setData(data))
+      .then((data) => {
+        setData(data);
+        setChatBar(data.results.users);
+      })
       .catch((error) => {
         console.log(error.message);
         setNotification("Something went wrong with the server");
@@ -114,83 +213,130 @@ function Chats() {
           name={userInfo.state.name + " " + userInfo.state.surname}
           city={userInfo.state.city}
         />
-        {windowWidth > 767 ? (
+        {windowWidth > 767 ? ( //if the window width is more than 767px then always show the title
           <S.Title>Conversations</S.Title>
-        ) : windowWidth < 768 && !senderID.state ? (
+        ) : windowWidth < 768 && !senderID.state ? ( //if the window is less than 767px, then show title only when the sender id is not set
           <S.Title>Conversations</S.Title>
         ) : (
           <></>
         )}
         <S.Block className="aside">
-          {data !== "undefined" ? (
+          {data ? (
             <ChatBar
-              chats={data ? data.results.chats : []}
-              users={data ? data.results.users : []}
+              chats={data.results.chats || []}
+              users={!chatBar ? data.results.users : chatBar}
             />
           ) : (
             <Notification notification={notification} />
           )}
         </S.Block>
+
+        {
+          <S.FlexBlock
+            className="flex-block"
+            onClick={() => {
+              setVanishMode(!vanishMode);
+              senderID.setState(null);
+            }}
+          >
+            <S.AddChat src={AddChat} alt="Add a vanish mode chat" />
+            Create a vanish mode chat
+          </S.FlexBlock>
+        }
       </S.SideBar>
       <S.Wrapper>
+        {vanishMode && (
+          <S.Title>
+            This is a Vanish Mode. Your messages are going to be visible only
+            for 10 seconds!
+          </S.Title>
+        )}
         <S.Container display={senderID.state}>
-          {!senderID.state && (
+          {!senderID.state && !vanishMode && (
             <S.Block>
-              <S.Picture src={ChattingPeople} alt="Choose the chat" />
+              <S.Icon />
               <S.Title>Choose the person to chat with!</S.Title>
             </S.Block>
           )}
+          {vanishMode && !senderID.state && (
+            <S.Block>
+              <S.Title>Choose the person to chat with on Vanish mode!</S.Title>
+              <S.Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  filterVanishModeUser(data, setChatBar, vanishModeUser);
+                }}
+              >
+                <InputField
+                  type="text"
+                  placeholder="Choose the person..."
+                  handleKeyUp={(e) => {
+                    setVanishModeUser(e.target.value);
+                    filterVanishModeUser(data, setChatBar, vanishModeUser);
+                  }}
+                />
+                <S.Icon />
+              </S.Form>
+            </S.Block>
+          )}
           <S.ScrollWrapper>
-            <ScrollableFeed>
-              {senderID.state !== null &&
-              data && ( //if there is userID, then show the chat where the userID is included
-                  <ChatBubble
-                    chat={data.results.chats.filter(
-                      (chat) => chat.user_id === senderID.state
-                    )}
-                  />
-                )}
-            </ScrollableFeed>
+            {senderID.state !== null &&
+            data && ( //if there is userID, data and vanishMode is false then show the chat where the userID is included
+                <ChatBubble
+                  chat={data.results.chats.filter(
+                    (chat) => chat.user_id === senderID.state
+                  )}
+                  vanishMode={vanishMode}
+                  vanishedMessageID={vanishedMessageID}
+                />
+              )}
           </S.ScrollWrapper>
 
-          {senderID.state !== null && ( //if there is userID, then show the message input
-            <S.Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (message.text.length > 0) {
-                  const theChat = data.results.chats.filter(
-                    //filtering chat by userID from API data
-                    (chat) => chat.user_id === senderID.state
-                  );
-                  if (theChat.length === 1) {
-                    theChat[0].messages.push(message);
-                  } else {
-                    createNewChat(data, setData, message, senderID);
-                    console.log("message sent");
-                  }
-                  postMessage(data);
-                  setMessage({ ...message, id: null, text: "" });
-                  e.target.reset();
-                }
-              }}
-            >
-              <InputField
-                type="text"
-                placeholder="Type your message here..."
-                handleChange={(e) => {
-                  setMessage({
-                    ...message,
-                    id: setMessageID(data, senderID),
-                    text: e.target.value,
-                  });
-                }}
-              />
-              <Button type="submit">
-                Send <S.SendIcon src={SendIcon} />
-              </Button>
-              <S.SendIcon className="mobile" src={SendIconMobile} />
-            </S.Form>
-          )}
+          {(senderID.state !== null && !vanishMode) ||
+            (senderID.state &&
+            vanishMode && ( //if there is userID and vanish mode is false, then show the message input
+                <S.Form
+                  onSubmit={(e) => {
+                    if (!vanishMode) {
+                      sendMessageSubmit(
+                        data,
+                        e,
+                        message,
+                        senderID,
+                        setMessage,
+                        setData
+                      );
+                    } else if (vanishMode) {
+                      console.log("vanish mode");
+                      sendVanishModeMessage(
+                        data,
+                        e,
+                        message,
+                        senderID,
+                        setMessage,
+                        setData,
+                        setVanishedMessageID
+                      );
+                    }
+                  }}
+                >
+                  <InputField
+                    type="text"
+                    placeholder="Type your message here..."
+                    handleChange={(e) => {
+                      setMessage({
+                        ...message,
+                        id: setMessageID(data, senderID, vanishMode),
+                        text: e.target.value,
+                      });
+                    }}
+                  />
+                  <Button type="submit">
+                    Send <S.SendIcon src={SendIcon} />
+                  </Button>
+                  <S.SendIcon className="mobile" src={SendIconMobile} />
+                </S.Form>
+              ))}
         </S.Container>
       </S.Wrapper>
     </S.Main>

@@ -10,10 +10,10 @@ function CheckType(text) {
   }
 }
 
-function ChatBubble({ chat }) {
+function ChatBubble({ chat, vanishMode, vanishedMessageID }) {
   return (
     <>
-      {chat.length === 1 ? (
+      {chat.length === 1 && !vanishMode ? (
         chat[0].messages.map((
           text //returning every item of the array in a Block
         ) => (
@@ -21,6 +21,16 @@ function ChatBubble({ chat }) {
             <S.Block type={CheckType(text)}>{text.text}</S.Block>
           </S.Wrapper>
         )) //wrapper is needed for chat bubble alignment
+      ) : chat.length === 1 && vanishMode ? (
+        chat[0].vanish_messages
+          .filter((x) => x.id !== vanishedMessageID)
+          .map((
+            text //returning every item of the array in a Block
+          ) => (
+            <S.Wrapper type={CheckType(text)} key={text.id}>
+              <S.Block type={CheckType(text)}>{text.text}</S.Block>
+            </S.Wrapper>
+          )) //wrapper is needed for chat bubble alignment
       ) : (
         <S.Notification>"There is no messsages yet"</S.Notification>
       )}
@@ -30,6 +40,7 @@ function ChatBubble({ chat }) {
 
 ChatBubble.propTypes = {
   chat: PropTypes.array,
+  vanishMode: PropTypes.bool,
 };
 
 export default ChatBubble;
