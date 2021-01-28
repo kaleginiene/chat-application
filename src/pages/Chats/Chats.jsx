@@ -71,7 +71,8 @@ function sendMessageSubmit(
   senderID,
   setMessage,
   setNotification,
-  setData
+  setData,
+  vanishMode
 ) {
   event.preventDefault();
   if (message.text.length > 0) {
@@ -82,7 +83,7 @@ function sendMessageSubmit(
     if (theChat.length === 1) {
       theChat[0].messages.push(message);
     } else {
-      createNewChat(data, setData, message, senderID);
+      createNewChat(data, setData, message, senderID, vanishMode);
     }
     postMessage(data, setNotification); //run function for posting message into the API
     setMessage({ ...message, id: null, text: "" }); //when the message is sent, reset message state and the form event targets
@@ -91,7 +92,7 @@ function sendMessageSubmit(
 }
 
 //creating new chat if there isn't any
-function createNewChat(data, setData, message, senderID) {
+function createNewChat(data, setData, message, senderID, vanishMode) {
   const chats = data.results.chats; // chats from API
   const newChatID = chats.length + 1; //new ID is calculatated
   const newChat = {
@@ -99,9 +100,14 @@ function createNewChat(data, setData, message, senderID) {
     id: newChatID,
     user_id: senderID.state,
     messages: [],
+    vanish_messages: [],
   };
-  if (message.id !== null && message.text.length > 0) {
+  if (message.id !== null && message.text.length > 0 && !vanishMode) {
     newChat.messages.push(message); //if there is a message, the push data into newChat array
+    chats.push(newChat);
+    setData(data); //updateing data, that there wouldnt be necessary to refresh the page
+  } else if (message.id !== null && message.text.length > 0 && vanishMode) {
+    newChat.vanish_messages.push(message); //if there is a message, the push data into newChat array
     chats.push(newChat);
     setData(data); //updateing data, that there wouldnt be necessary to refresh the page
   } else {
@@ -141,7 +147,8 @@ function sendVanishModeMessage(
   setNotification,
   setMessage,
   setData,
-  setVanishedMessageID
+  setVanishedMessageID,
+  vanishMode
 ) {
   event.preventDefault();
   if (message.text.length > 0) {
@@ -150,23 +157,21 @@ function sendVanishModeMessage(
       (chat) => chat.user_id === senderID.state
     );
 
-    if (theChat.length === 1) {
+    if (theChat.length === 0) {
+      createNewChat(data, setData, message, senderID, vanishMode); //if there is any chats, then run function to create new chat
+      data.results.chats.filter((chat) => chat.user_id === senderID.state); //filtering chats again to get new chat
+    } else if (theChat.length === 1) {
       theChat[0].vanish_messages.push(message); //if the chat is the one, push the message into the vanish_messages
-    } else if (theChat.length === 0) {
-      createNewChat(data, setData, message, senderID); //if there is any chats, then run function to create new chat
+      const messageIndex = theChat[0].vanish_messages.findIndex(
+        (x) => x.id === message.id
+      ); //find the index of the message
+      postMessage(data, setNotification); //post updated data into the server
+      setTimeout(() => {
+        theChat[0].vanish_messages.splice(messageIndex, 1); //after 10sec remove the message from the vanish messages array
+        setVanishedMessageID(message.id); //setting the message id, so that it wouldn't be necesarry to refresh the page
+        postMessage(data, setNotification); //post to the API new data
+      }, 10000);
     }
-
-    postMessage(data, setNotification); //post updated data into the server
-
-    const messageIndex = theChat[0].vanish_messages.findIndex(
-      (x) => x.id === message.id
-    ); //find the index of the message
-
-    setTimeout(() => {
-      theChat[0].vanish_messages.splice(messageIndex, 1); //after 10sec remove the message from the vanish messages array
-      setVanishedMessageID(message.id); //setting the message id, so that it wouldn't be necesarry to refresh the page
-      postMessage(data, setNotification); //post to the API new data
-    }, 10000);
 
     setMessage({ ...message, id: null, text: "" }); //reset meessage state after updating data into the server
     setVanishedMessageID(null); //reset vanished message id
@@ -193,7 +198,7 @@ function Chats() {
 
   useEffect(() => {
     //getting data from API
-    fetch("https://api.jsonbin.io/b/60098ea2a3d8a0580c345ecb/10", {
+    fetch("https://api.jsonbin.io/b/60098ea2a3d8a0580c345ecb/11", {
       headers: {
         "secret-key":
           "$2b$10$QSzsWWZX0dZ9oTgYIiTRiu3aQI9EEFsc/amKTuuQ0dGl3lLeFV5ju",
@@ -313,7 +318,8 @@ function Chats() {
                     senderID,
                     setNotification,
                     setMessage,
-                    setData
+                    setData,
+                    vanishMode
                   );
                 } else if (vanishMode) {
                   sendVanishModeMessage(
@@ -324,7 +330,8 @@ function Chats() {
                     setMessage,
                     setNotification,
                     setData,
-                    setVanishedMessageID
+                    setVanishedMessageID,
+                    vanishMode
                   );
                 }
               }}

@@ -31,8 +31,10 @@ function ChatBubble({ chat, vanishMode, vanishedMessageID }) {
               <S.Block type={CheckType(text)}>{text.text}</S.Block>
             </S.Wrapper>
           )) //wrapper is needed for chat bubble alignment
-      ) : (
+      ) : chat.length < 1 ? (
         <S.Notification>"There is no messsages yet"</S.Notification>
+      ) : (
+        <></>
       )}
     </>
   );

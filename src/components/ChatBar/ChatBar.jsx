@@ -11,9 +11,13 @@ function findLastMessage(chats, userID) {
     const filteredChats = chats.filter((chat) => chat.user_id === userID); //filtering messages, that includes userID
     if (filteredChats.length === 1) {
       //checking if there is any chat that includes userID
-      const lastItem =
-        filteredChats[0].messages[filteredChats[0].messages.length - 1]; //getting the last object of the chat, that includes userID
-      return lastItem.text; //returning last message
+      if (filteredChats[0].messages.length > 0) {
+        const lastItem =
+          filteredChats[0].messages[filteredChats[0].messages.length - 1]; //getting the last object of the chat, that includes userID
+        return lastItem.text; //returning last message
+      }
+    } else {
+      return "";
     }
   } else {
     return "";
