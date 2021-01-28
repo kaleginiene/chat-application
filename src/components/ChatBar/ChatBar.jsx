@@ -25,9 +25,6 @@ function ChatBar({ chats, users }) {
   const windowWidth = window.innerWidth;
   const history = useHistory();
 
-  console.log(windowWidth);
-  console.log(senderID.state);
-
   return (
     <>
       {users.length > 0 ? ( //checking if there are any users

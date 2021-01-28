@@ -3,6 +3,8 @@ import { EditIcon, EditIconHover, EditMobile } from "../../assets";
 
 export const Block = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
 
   padding: 1em;
   max-height: 30%;
@@ -14,9 +16,6 @@ export const Block = styled.div`
   text-align: center;
 
   @media only screen and (max-width: 767px) {
-    display: flex;
-    align-items: center;
-
     padding: 0.5em 1em;
     width: 100%;
     box-sizing: border-box;
@@ -49,6 +48,7 @@ export const Edit = styled.div`
 `;
 
 export const Picture = styled.img`
+  margin-right: 1em;
   width: 5em;
   height: 5em;
   box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
@@ -66,7 +66,7 @@ export const Picture = styled.img`
 `;
 
 export const Title = styled.h4`
-  margin-bottom: 0;
+  margin: 0;
 
   @media only screen and (max-width: 767px) {
     margin-top: 0;

@@ -7,6 +7,7 @@ function InputField({
   disabled,
   handleChange,
   handleClick,
+  handleKeyUp,
   label,
   minLength,
   options,
@@ -126,6 +127,7 @@ function InputField({
             type="text"
             placeholder={placeholder}
             onChange={handleChange}
+            onKeyUp={handleKeyUp}
             minLength={minLength}
             required={required}
             disabled={disabled}
@@ -141,6 +143,7 @@ InputField.propTypes = {
   disabled: PropTypes.bool,
   handleChange: PropTypes.func,
   handleClick: PropTypes.func,
+  handleKeyUp: PropTypes.func,
   label: PropTypes.string,
   minLength: PropTypes.string,
   options: PropTypes.array,

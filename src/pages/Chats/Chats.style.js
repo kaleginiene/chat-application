@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PlusIcon, PlusIconHover } from "../../assets";
 
 export const Main = styled.main`
   display: flex;
@@ -26,13 +27,10 @@ export const Main = styled.main`
 
     border-radius: 0;
   }
-  @media only screen and (min-width: 1200px) {
-    width: 70em;
-    height: 80vh;
-  }
 `;
 
 export const SideBar = styled.aside`
+  padding: 0 2em 1em 0;
   padding-right: 2em;
   width: 35%;
   height: 80vh;
@@ -65,6 +63,29 @@ export const Wrapper = styled.section`
   }
 `;
 
+export const FlexBlock = styled.div`
+  display: flex;
+  align-items: center;
+
+  padding: 0.2em;
+
+  font-size: 0.8em;
+
+  cursor: pointer;
+
+  @media only screen and (max-width: 767px) {
+    justify-content: center;
+  }
+`;
+
+export const AddChat = styled.img`
+  margin-right: 0.5em;
+  width: 2em;
+
+  object-fit: cover;
+  cursor: pointer;
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -72,10 +93,11 @@ export const Container = styled.div`
 
   padding: 0 1em 1em 1em;
   width: 100%;
-  height: 80vh;
+  height: ${(props) => (props.vanishMode ? "70vh" : "100%")};
   box-sizing: border-box;
 
   background-color: ${(props) => props.theme.primary.background};
+  border: ${(props) => (props.vanishMode ? "2px solid #cbdaef" : "none")};
   border-radius: 1em;
 
   @media only screen and (max-width: 767px) {
@@ -93,7 +115,7 @@ export const Container = styled.div`
 
 export const Block = styled.div`
   &&.aside {
-    height: 60%;
+    height: 64%;
     overflow-y: auto;
     box-sizing: border-box;
 
@@ -116,8 +138,29 @@ export const Block = styled.div`
   }
 `;
 
+export const Icon = styled.div`
+  margin: 0 auto;
+  width: 2em;
+  height: 2em;
+
+  object-fit: cover;
+
+  background-image: url(${PlusIcon});
+  background-size: cover;
+
+  &&:hover {
+    background-image: url(${PlusIconHover});
+  }
+  cursor: pointer;
+
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
+`;
+
 export const Picture = styled.img`
   width: 100%;
+  max-height: 55vh;
 
   object-fit: cover;
 
@@ -133,7 +176,7 @@ export const Form = styled.form`
   align-items: center;
   justify-content: space-between;
 
-  padding: 0em 1em;
+  padding: 1em 1em;
 
   background-color: #fff;
   border-radius: 1em;
@@ -154,7 +197,7 @@ export const Form = styled.form`
     align-items: center;
     justify-content: space-between;
 
-    margin-left: 0.5em;
+    margin: 0 0 0 0.5em;
     padding: 0.65em 2em;
     width: 25%;
 

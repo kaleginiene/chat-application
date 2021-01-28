@@ -11,7 +11,6 @@ function Button({ children, color, handleClick, type }) {
 }
 
 Button.propTypes = {
-  children: PropTypes.element,
   color: PropTypes.string,
   handleClick: PropTypes.func,
   type: PropTypes.string,

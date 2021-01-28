@@ -13,13 +13,14 @@ import {
 import * as S from "./Chats.style";
 import {
   AddChat,
+  ChattingPeople,
   DefaultPhoto,
   EditIcon,
   SendIcon,
   SendIconMobile,
 } from "../../assets";
 
-function postMessage(data) {
+function postMessage(data, setNotification) {
   //updating data with new messages into the server
   fetch("https://api.jsonbin.io/b/60098ea2a3d8a0580c345ecb", {
     method: "PUT",
@@ -33,10 +34,10 @@ function postMessage(data) {
   })
     .then((res) => res.json())
     .then((data) => console.log(data))
-    .catch((err) => console.log(err));
+    .catch((err) => setNotification("Something went wrong"));
 }
 
-function setMessageID(data, senderID, vanishMode) {
+function setMessageID(data, senderID, setNotification, vanishMode) {
   //setting the message id for the new chats
   const theChat = data.results.chats.filter(
     //filtering messages by userID from API data
@@ -55,7 +56,7 @@ function setMessageID(data, senderID, vanishMode) {
     return 1;
   } else {
     //if theChat.length is more than 1 it means,that there are duplicates and something went wrong
-    console.log("Wrong user. Try to login again");
+    setNotification("Wrong user. Try to login again");
   }
 }
 
@@ -66,6 +67,7 @@ function sendMessageSubmit(
   message,
   senderID,
   setMessage,
+  setNotification,
   setData
 ) {
   if (message.text.length > 0) {
@@ -78,7 +80,7 @@ function sendMessageSubmit(
     } else {
       createNewChat(data, setData, message, senderID);
     }
-    postMessage(data); //run function for posting message into the API
+    postMessage(data, setNotification); //run function for posting message into the API
     setMessage({ ...message, id: null, text: "" }); //when the message is sent, reset message state and the form event targets
     event.target.reset();
   }
@@ -132,6 +134,7 @@ function sendVanishModeMessage(
   event,
   message,
   senderID,
+  setNotification,
   setMessage,
   setData,
   setVanishedMessageID
@@ -149,7 +152,7 @@ function sendVanishModeMessage(
       createNewChat(data, setData, message, senderID); //if there is any chats, then run function to create new chat
     }
 
-    postMessage(data); //post updated data into the server
+    postMessage(data, setNotification); //post updated data into the server
 
     const messageIndex = theChat[0].vanish_messages.findIndex(
       (x) => x.id === message.id
@@ -158,7 +161,7 @@ function sendVanishModeMessage(
     setTimeout(() => {
       theChat[0].vanish_messages.splice(messageIndex, 1); //after 10sec remove the message from the vanish messages array
       setVanishedMessageID(message.id); //setting the message id, so that it wouldn't be necesarry to refresh the page
-      postMessage(data); //post to the API new data
+      postMessage(data, setNotification); //post to the API new data
     }, 10000);
 
     setMessage({ ...message, id: null, text: "" }); //reset meessage state after updating data into the server
@@ -251,10 +254,13 @@ function Chats() {
             for 10 seconds!
           </S.Title>
         )}
-        <S.Container display={senderID.state}>
+        <S.Container display={senderID.state} vanishMode={vanishMode}>
           {!senderID.state && !vanishMode && (
             <S.Block>
-              <S.Icon />
+              <S.Picture
+                src={ChattingPeople}
+                alt="Choose the person to chat with"
+              />
               <S.Title>Choose the person to chat with!</S.Title>
             </S.Block>
           )}
@@ -303,17 +309,18 @@ function Chats() {
                         e,
                         message,
                         senderID,
+                        setNotification,
                         setMessage,
                         setData
                       );
                     } else if (vanishMode) {
-                      console.log("vanish mode");
                       sendVanishModeMessage(
                         data,
                         e,
                         message,
                         senderID,
                         setMessage,
+                        setNotification,
                         setData,
                         setVanishedMessageID
                       );
@@ -326,7 +333,12 @@ function Chats() {
                     handleChange={(e) => {
                       setMessage({
                         ...message,
-                        id: setMessageID(data, senderID, vanishMode),
+                        id: setMessageID(
+                          data,
+                          senderID,
+                          setNotification,
+                          vanishMode
+                        ),
                         text: e.target.value,
                       });
                     }}

@@ -28,10 +28,6 @@ export const Main = styled.main`
     background-color: ${(props) => props.theme.primary.background};
     border-radius: 0;
   }
-  @media only screen and (min-width: 1200px) {
-    width: 70em;
-    height: 80vh;
-  }
 `;
 
 export const Wrapper = styled.div`
