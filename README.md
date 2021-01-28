@@ -1,3 +1,31 @@
+# :love_letter: Chat application
+
+## Features
+
+#### :ok_hand: Login with simple email and password validation.
+
+#### :floppy_disk: Not strict profile information form.
+
+#### :pencil2: Easy edit user profile information and uploading a profile picture.
+
+#### :envelope: See the chats uploaded from API.
+
+#### :rocket: Write messages, which are uploaded into the API.
+
+#### :eyes: Turn on the vanish mode where sent messages disappears after 10 seconds.
+
+## Tools that've been used
+
+#### :anchor: React Hooks such as: useState, useEffect and useContext.
+
+#### :high_heel: styled-components module for components styling.
+
+#### :closed_book: Storybook for UI components.
+
+#### :mega: REST API for connection with the server.
+
+#### :eyeglasses: PropTypes for props validation.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
