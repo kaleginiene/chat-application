@@ -34,7 +34,10 @@ function postMessage(data, setNotification) {
   })
     .then((res) => res.json())
     .then((data) => console.log(data))
-    .catch((err) => setNotification("Something went wrong"));
+    .catch((err) => {
+      setNotification("Something went wrong");
+      console.log(err.message);
+    });
 }
 
 function setMessageID(data, senderID, setNotification, vanishMode) {
@@ -298,57 +301,55 @@ function Chats() {
               )}
           </S.ScrollWrapper>
 
-          {(senderID.state !== null && !vanishMode) ||
-            (senderID.state &&
-            vanishMode && ( //if there is userID and vanish mode is false, then show the message input
-                <S.Form
-                  onSubmit={(e) => {
-                    if (!vanishMode) {
-                      sendMessageSubmit(
-                        data,
-                        e,
-                        message,
-                        senderID,
-                        setNotification,
-                        setMessage,
-                        setData
-                      );
-                    } else if (vanishMode) {
-                      sendVanishModeMessage(
-                        data,
-                        e,
-                        message,
-                        senderID,
-                        setMessage,
-                        setNotification,
-                        setData,
-                        setVanishedMessageID
-                      );
-                    }
-                  }}
-                >
-                  <InputField
-                    type="text"
-                    placeholder="Type your message here..."
-                    handleChange={(e) => {
-                      setMessage({
-                        ...message,
-                        id: setMessageID(
-                          data,
-                          senderID,
-                          setNotification,
-                          vanishMode
-                        ),
-                        text: e.target.value,
-                      });
-                    }}
-                  />
-                  <Button type="submit">
-                    Send <S.SendIcon src={SendIcon} />
-                  </Button>
-                  <S.SendIcon className="mobile" src={SendIconMobile} />
-                </S.Form>
-              ))}
+          {senderID.state !== null && ( //if there is userID and vanish mode is false, then show the message input
+            <S.Form
+              onSubmit={(e) => {
+                if (!vanishMode) {
+                  sendMessageSubmit(
+                    data,
+                    e,
+                    message,
+                    senderID,
+                    setNotification,
+                    setMessage,
+                    setData
+                  );
+                } else if (vanishMode) {
+                  sendVanishModeMessage(
+                    data,
+                    e,
+                    message,
+                    senderID,
+                    setMessage,
+                    setNotification,
+                    setData,
+                    setVanishedMessageID
+                  );
+                }
+              }}
+            >
+              <InputField
+                type="text"
+                placeholder="Type your message here..."
+                handleChange={(e) => {
+                  setMessage({
+                    ...message,
+                    id: setMessageID(
+                      data,
+                      senderID,
+                      setNotification,
+                      vanishMode
+                    ),
+                    text: e.target.value,
+                  });
+                }}
+              />
+              <Button type="submit">
+                Send <S.SendIcon src={SendIcon} />
+              </Button>
+              <S.SendIcon className="mobile" src={SendIconMobile} />
+            </S.Form>
+          )}
         </S.Container>
       </S.Wrapper>
     </S.Main>
