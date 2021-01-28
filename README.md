@@ -24,7 +24,12 @@
 
 #### :mega: REST API for connection with the server.
 
+#### :tophat: For test API I've used https://jsonbin.io/api-reference.
+
 #### :eyeglasses: PropTypes for props validation.
+
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
