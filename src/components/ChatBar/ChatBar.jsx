@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 import { ChatContext } from "../../contexts/ChatContext";
 import { Loader } from "../../components";
 import * as S from "./ChatBar.style";
-import { BackArrowMobile, DefaultPhoto } from "../../assets";
+import {
+  ActiveBubble,
+  BackArrowMobile,
+  DefaultPhoto,
+  InactiveBubble,
+} from "../../assets";
 
 function findLastMessage(chats, userID) {
   if (chats.length > 0) {
@@ -52,6 +57,9 @@ function ChatBar({ chats, users }) {
                     {findLastMessage(chats, item.id)}
                   </S.LastMessage>
                 </S.Wrapper>
+                <S.Activity
+                  src={item.activity === "true" ? ActiveBubble : InactiveBubble}
+                />
               </S.Block>
             );
           } else if (windowWidth > 767 && item.id === senderID.state) {
@@ -71,6 +79,9 @@ function ChatBar({ chats, users }) {
                     {findLastMessage(chats, item.id)}
                   </S.LastMessage>
                 </S.Wrapper>
+                <S.Activity
+                  src={item.activity === "true" ? ActiveBubble : InactiveBubble}
+                />
               </S.Block>
             );
           } else if (windowWidth < 768 && item.id === senderID.state) {
@@ -90,6 +101,9 @@ function ChatBar({ chats, users }) {
                 />
                 <S.Picture src={item.image || DefaultPhoto} />
                 <S.Title>{item.name + " " + item.surname}</S.Title>
+                <S.Activity
+                  src={item.activity === "true" ? ActiveBubble : InactiveBubble}
+                />
               </S.Block>
             );
           } else if (windowWidth < 768 && item.id !== senderID.state) {

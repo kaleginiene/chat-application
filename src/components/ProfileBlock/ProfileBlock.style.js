@@ -5,6 +5,7 @@ export const Block = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   padding: 1em;
   max-height: 30%;
@@ -16,6 +17,7 @@ export const Block = styled.div`
   text-align: center;
 
   @media only screen and (max-width: 767px) {
+    margin-bottom: 0.5em;
     padding: 0.5em 1em;
     width: 100%;
     box-sizing: border-box;
@@ -47,6 +49,29 @@ export const Edit = styled.div`
   }
 `;
 
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  @media only screen and (max-width: 767px) {
+    justify-content: flex-start;
+  }
+`;
+
+export const Activity = styled.img`
+  margin-right: 0.5em;
+  width: 2em;
+
+  object-fit: cover;
+`;
+
+export const Text = styled.p`
+  font-size: 0.8em;
+`;
+
 export const Picture = styled.img`
   margin-right: 1em;
   width: 5em;
@@ -67,6 +92,8 @@ export const Picture = styled.img`
 
 export const Title = styled.h4`
   margin: 0;
+
+  text-align: left;
 
   @media only screen and (max-width: 767px) {
     margin-top: 0;

@@ -6,14 +6,29 @@ export const Wrapper = styled.div`
     props.type === "out"
       ? "flex-end"
       : "flex-start"}; //incomming messages aligned left, outcomming messages aligned right
-  width: 100%;
+  align-items: center;
+
+  max-width: 100%;
+  box-sizing: border-box;
+`;
+
+export const Picture = styled.img`
+  width: 3em;
+  height: 3em;
+  border-radius: 100%;
+
+  object-fit: cover;
 `;
 
 export const Block = styled.div`
   padding: 1em 1.5em;
   margin: 1em 1em;
   width: fit-content;
+  max-width: calc(
+    100% - 3em - 2em
+  ); //width calcuulated 100% minus picture width and margins
   box-shadow: -4px 7px 15px 1px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 
   border-radius: ${(props) =>
     props.type === "in"

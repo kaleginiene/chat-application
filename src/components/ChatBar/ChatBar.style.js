@@ -6,7 +6,7 @@ export const Block = styled.div`
 
   margin-bottom: 0.5em;
   margin-right: 0.5em;
-  padding: 0.5em 0.5em;
+  padding: 0.2em 0.5em;
   height: 5em;
   max-width: 100%;
 
@@ -32,29 +32,24 @@ export const Block = styled.div`
     color: ${(props) => props.theme.secondary.font.color};
 
     h3 {
-      margin: 0;
+      margin: 0 1em 0 0;
     }
   }
 
   @media only screen and (max-width: 767px) {
     margin: 0;
-    padding: 0.5em 1em;
+    padding: 0.1em 1em;
   }
 `;
 
 export const Picture = styled.img`
   margin-right: 1em;
-  width: 4em;
-  height: 4em;
+  width: 3em;
+  height: 3em;
 
   border-radius: 100%;
 
   object-fit: cover;
-
-  @media only screen and (max-width: 767px) {
-    width: 3em;
-    height: 3em;
-  }
 `;
 
 export const Wrapper = styled.div`
@@ -78,6 +73,13 @@ export const LastMessage = styled.p`
   white-space: nowrap;
 
   font-size: 0.7em;
+`;
+
+export const Activity = styled.img`
+  width: 0.5em;
+  height: 0.5em;
+
+  object-fit: cover;
 `;
 
 export const MobBackBtn = styled.img`

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ChatContext } from "../../contexts/ChatContext";
 import { UserContext } from "../../contexts/UserContext";
@@ -102,6 +102,7 @@ function createNewChat(data, setData, message, senderID, vanishMode) {
     messages: [],
     vanish_messages: [],
   };
+
   if (message.id !== null && message.text.length > 0 && !vanishMode) {
     newChat.messages.push(message); //if there is a message, the push data into newChat array
     chats.push(newChat);
@@ -225,6 +226,18 @@ function Chats() {
           name={userInfo.state.name + " " + userInfo.state.surname}
           city={userInfo.state.city}
         />
+        {windowWidth < 768 && (
+          <S.FlexBlock
+            className="flex-block"
+            onClick={() => {
+              setVanishMode(!vanishMode);
+              senderID.setState(null);
+            }}
+          >
+            <S.AddChat src={AddChat} alt="Add a vanish mode chat" />
+            Create a vanish mode chat
+          </S.FlexBlock>
+        )}
         {windowWidth > 767 ? ( //if the window width is more than 767px then always show the title
           <S.Title>Conversations</S.Title>
         ) : windowWidth < 768 && !senderID.state ? ( //if the window is less than 767px, then show title only when the sender id is not set
@@ -243,7 +256,7 @@ function Chats() {
           )}
         </S.Block>
 
-        {
+        {windowWidth > 767 && (
           <S.FlexBlock
             className="flex-block"
             onClick={() => {
@@ -254,7 +267,7 @@ function Chats() {
             <S.AddChat src={AddChat} alt="Add a vanish mode chat" />
             Create a vanish mode chat
           </S.FlexBlock>
-        }
+        )}
       </S.SideBar>
       <S.Wrapper>
         {vanishMode && (
@@ -301,6 +314,7 @@ function Chats() {
                   chat={data.results.chats.filter(
                     (chat) => chat.user_id === senderID.state
                   )}
+                  users={data.results.users}
                   vanishMode={vanishMode}
                   vanishedMessageID={vanishedMessageID}
                 />

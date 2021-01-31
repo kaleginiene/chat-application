@@ -1,3 +1,4 @@
+export { default as ActiveBubble } from "./active.svg";
 export { default as AddChat } from "./add-chat.svg";
 export { default as BackArrow } from "./back-arrow.svg";
 export { default as BackArrowMobile } from "./back-mobile.svg";
@@ -9,7 +10,9 @@ export { default as EditIconHover } from "./edithover.svg";
 export { default as EditMobile } from "./editmobile.svg";
 export { default as ExitIcon } from "./exit.svg";
 export { default as ExitIconHover } from "./exithover.svg";
+export { default as InactiveBubble } from "./inactive.svg";
 export { default as PlusIcon } from "./plus.svg";
 export { default as PlusIconHover } from "./plushover.svg";
+export { default as RadioActive } from "./radio-active.svg";
 export { default as SendIcon } from "./send-button.svg";
 export { default as SendIconMobile } from "./send-button-mobile.svg";
