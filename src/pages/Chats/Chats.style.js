@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { PlusIcon, PlusIconHover } from "../../assets";
+import { ExitIcon, PlusIcon, PlusIconHover } from "../../assets";
 
 export const Main = styled.main`
+  position: relative;
   display: flex;
 
   margin: 0 auto;
@@ -29,6 +30,18 @@ export const Main = styled.main`
   }
 `;
 
+export const Logout = styled.img`
+  position: absolute;
+
+  width: 1.2em;
+  top: 0.7em;
+  right: 0.7em;
+
+  object-fit: cover;
+  cursor: pointer;
+  z-index: 9;
+`;
+
 export const SideBar = styled.aside`
   padding: 0 2em 1em 0;
   padding-right: 2em;
@@ -42,6 +55,11 @@ export const SideBar = styled.aside`
     height: fit-content;
 
     border-radius: 0;
+
+    background-color: ${(props) =>
+      props.vanishMode === "true"
+        ? props.theme.primary.background
+        : "transparent"};
   }
 `;
 
@@ -87,6 +105,8 @@ export const AddChat = styled.img`
 `;
 
 export const Container = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -106,7 +126,7 @@ export const Container = styled.div`
 
     margin-top: 1.5em;
     height: fit-content;
-    min-height: 90vh;
+    min-height: 78vh;
 
     padding: 0 0 1em 0;
     border-radius: 0;
@@ -256,4 +276,17 @@ export const ScrollWrapper = styled.div`
     background-color: #d0def4;
     border-radius: 0.5em;
   }
+`;
+
+export const Exit = styled.div`
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  top: 0.5em;
+  right: 0.5em;
+
+  background-image: url(${ExitIcon});
+  background-size: cover;
+
+  cursor: pointer;
 `;

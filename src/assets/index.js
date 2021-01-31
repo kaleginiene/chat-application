@@ -11,6 +11,7 @@ export { default as EditMobile } from "./editmobile.svg";
 export { default as ExitIcon } from "./exit.svg";
 export { default as ExitIconHover } from "./exithover.svg";
 export { default as InactiveBubble } from "./inactive.svg";
+export { default as LogoutIcon } from "./logout.svg";
 export { default as PlusIcon } from "./plus.svg";
 export { default as PlusIconHover } from "./plushover.svg";
 export { default as RadioActive } from "./radio-active.svg";

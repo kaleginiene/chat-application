@@ -141,4 +141,8 @@ export const BackIcon = styled.img`
 
   object-fit: cover;
   cursor: pointer;
+
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
 `;

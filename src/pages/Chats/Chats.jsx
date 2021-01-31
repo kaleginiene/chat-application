@@ -16,6 +16,7 @@ import {
   ChattingPeople,
   DefaultPhoto,
   EditIcon,
+  LogoutIcon,
   SendIcon,
   SendIconMobile,
 } from "../../assets";
@@ -218,7 +219,22 @@ function Chats() {
 
   return (
     <S.Main>
-      <S.SideBar>
+      <S.Logout
+        src={LogoutIcon}
+        alt="Logout"
+        onClick={() => {
+          userInfo.setState({
+            email: "",
+            password: "",
+            name: "",
+            surname: "",
+            image: "",
+            city: "",
+          });
+          history.push("/");
+        }}
+      />
+      <S.SideBar vanishMode={vanishMode.toString()}>
         <ProfileBlock
           editUrl={EditIcon}
           handleClick={() => history.push("/profile")}
@@ -235,7 +251,7 @@ function Chats() {
             }}
           >
             <S.AddChat src={AddChat} alt="Add a vanish mode chat" />
-            Create a vanish mode chat
+            {!vanishMode ? "Create a vanish mode chat" : "Exit vanish mode"}
           </S.FlexBlock>
         )}
         {windowWidth > 767 ? ( //if the window width is more than 767px then always show the title
@@ -288,6 +304,7 @@ function Chats() {
           )}
           {vanishMode && !senderID.state && (
             <S.Block>
+              <S.Exit onClick={() => setVanishMode(false)} />
               <S.Title>Choose the person to chat with on Vanish mode!</S.Title>
               <S.Form
                 onSubmit={(e) => {

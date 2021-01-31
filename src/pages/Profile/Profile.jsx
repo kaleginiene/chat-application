@@ -198,6 +198,7 @@ function Profile() {
             userInfo.setState({ ...userInfo.state, city: e.target.value });
           }}
         />
+
         <Button type="submit">Update</Button>
         <S.BackIcon
           src={BackArrow}
@@ -205,6 +206,39 @@ function Profile() {
           onClick={() => history.goBack()}
         />
       </S.Container>
+      {windowWidth < 768 && (
+        <ImageUploader
+          callBackBtn={() => setNotification("")}
+          callBackUpload={(e) => {
+            if (!imgUrl) {
+              const files = e.target.files[0];
+              setUpload(URL.createObjectURL(files));
+            } else {
+              setNotification("Only one picture is allowed");
+            }
+          }}
+          callBackUrl={(e) => {
+            if (!imgUploadUrl) {
+              setUrl(e.target.value);
+            } else {
+              setNotification("Only one picture is allowed");
+            }
+          }}
+          handleSubmit={(e) => {
+            e.preventDefault();
+            uploadImgSubmit(
+              imgUploadUrl,
+              imgUrl,
+              userInfo,
+              setNotification,
+              e,
+              setUrl,
+              setUpload
+            );
+          }}
+          notification={notification}
+        />
+      )}
     </S.Main>
   );
 }
